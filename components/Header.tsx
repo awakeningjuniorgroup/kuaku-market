@@ -22,6 +22,10 @@ const Header = async () => {
   if (userId) {
     orders = await getMyOrders(userId);
   }
+   const isAdmin =
+    user?.emailAddresses?.some(
+      (email) => email.emailAddress === "awakeningjuniorgroup@gmail.com"
+    ) || false;
 
   return (
     <header className="sticky top-0 z-50 py-5 bg-white/70">
@@ -33,7 +37,7 @@ const Header = async () => {
         <HeaderMenu />
         <div className="w-auto md:w-1/3 flex items-center justify-end gap-5">
           <SearchBar />
-          <AdminAccess />
+          {isAdmin && <AdminAccess />} {/* bouton visible seulement pour admin */}
           <CartIcons />
           <FavouriteButton />
 
