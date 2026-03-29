@@ -24,7 +24,7 @@ const Header = async () => {
   }
    const isAdmin =
     user?.emailAddresses?.some(
-      (email) => email.emailAddress === "awakeningjuniorgroup@gmail.com"
+      (email) => email.emailAddress === "adminkuakumarket@gmail.com"
     ) || false;
 
   return (
