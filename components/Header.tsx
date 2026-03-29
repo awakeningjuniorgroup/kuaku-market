@@ -13,6 +13,7 @@ import { ClerkLoaded, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { Logs } from "lucide-react";
 import { getMyOrders } from "@/sanity/queries";
+import AdminAccess from "./AdminAccess";
 
 const Header = async () => {
   const user = await currentUser();
@@ -32,7 +33,7 @@ const Header = async () => {
         <HeaderMenu />
         <div className="w-auto md:w-1/3 flex items-center justify-end gap-5">
           <SearchBar />
-          
+          <AdminAccess />
           <CartIcons />
           <FavouriteButton />
 
