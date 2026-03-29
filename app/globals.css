@@ -6,26 +6,33 @@
 
 @theme {
   --font-poppins: Poppins, sans-serif;
-  --color-shop-light-pink: #fcf0e4;
-  --shop-light-pink: #fcf0e4;
-  --shop-dark-green: #063c28;
-  --shop-light-dark-green: #063D29;
-  --shop-light-bg: #f6f6f6;
-  --shop-light-green: #3b9c3c;
-  --shop-orange: #fb6c08;
-  --darkColor: #151515;
-  --lightColor: #52525b;
-  --lightOrange: #fca99b;
+  --color-shop_light_pink: #fcf0e4;
+  --color-shop_light_pink: #fcf0e4;
+  --color-shop_dark_green: #063c28;
+  --color-shop_btn_dark_green: #063d29;
+  --color-shop_light_bg: #f6f6f6;
+  --color-shop_Color: #52525b;
+  --color-shop_light_green: #93D991;
+  --color-shop_light_Orange: #fca99b;
   --lightBlue: #7688DB;
-  --darkBlue: #6c7fd8;
+  --color-darkColor: #151515;
+  --color-lightColor: #52525b;
   --lightBg: #F8F8FB;
   --darkRed: #F02757;
   --lightText: #ababab;
   --lightGreen: #93D991;
   --productBg: #f1f3f8;
+  --text-shop_light_green: "#3b9c3c";
+  --color-dark_blue: #6c7fd8;
+  --color-shop_lighter_bg: #f1f3f8;
+  --color-shop_lighter_green: #93D991;
+  --color-shop_light_text: #686e7d;
+  --color-shop_lighter_text: #ababab;
+  --color-deal-bg: #f1f3f8;
 }
 
 :root {
+  --font-poppins: "Poppins", sans-srif;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -146,4 +153,13 @@
   html {
     @apply font-sans;
   }
+  .hoverEffect { 
+    @apply transition-all duration-300 ease-in-out;
+  }
+  button {
+    @apply hover:cursor-pointer;
+  }
+}
+body {
+  font-family: var(--font-poppins);
 }
