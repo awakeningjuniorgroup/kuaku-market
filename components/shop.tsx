@@ -18,15 +18,14 @@ interface Props {
   brands: BRANDS_QUERYResult;
 }
 
-const Shop = ({ categories, brands }: Props) => {
+const ShopContent = ({ categories, brands }: Props) => {
   const searchParams = useSearchParams();
   const brandParams = searchParams?.get("brand");
-  const categoryParams = searchParams?.get("category"); // If you want to get category from URL
+  const categoryParams = searchParams?.get("category");
 
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // Initialize selectedCategory from URL param if needed
   const [selectedCategory, setSelectedCategory] = useState<string | null>(categoryParams || null);
   const [selectedBrand, setSelectedBrand] = useState<string | null>(brandParams || null);
   const [selectedPrice, setSelectedPrice] = useState<string | null>(null);
@@ -75,6 +74,7 @@ const Shop = ({ categories, brands }: Props) => {
   return (
     <div className="border-t">
       <Container className="mt-5">
+        <Container className="mt-5">
         <div className="sticky top-0 z-10 mb-5">
           <div className="flex items-center justify-between">
             <Title className="text-lg uppercase tracking-wide">
@@ -146,8 +146,9 @@ const Shop = ({ categories, brands }: Props) => {
           </div>
         </div>
       </Container>
+      </Container>
     </div>
   );
 };
 
-export default Shop;
+export default ShopContent;

@@ -1,6 +1,6 @@
 import { createClient } from "next-sanity";
 
-import { apiVersion, dataset, projectId } from "sanity/envkey.ts";
+import { apiVersion, dataset, projectId } from "../sanity/env";
 
 // Read-only client for fetching data (uses CDN for better performance)
 
