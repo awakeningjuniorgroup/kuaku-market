@@ -4,18 +4,16 @@
 import React, { useEffect } from "react";
 import useStore from "@/store";
 import { useUser } from "@clerk/nextjs";
-import { useSearchParams } from "next/navigation";
+import { SearchParams } from "next/dist/server/request/search-params";
 import { motion } from "motion/react";
 import { Check, Home, Package, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 
-const SuccessPageContent = () => {
+const SuccessPageContent = ({ searchParams }: { searchParams: SearchParams }) => {
   const { user } = useUser();
   const { resetCart } = useStore();
-  const searchParams = useSearchParams();
-  const session_id = searchParams.get("session_id");
-  const orderNumber = searchParams.get("orderNumber");
-
+  const session_id = searchParams.session_id || null;
+  const orderNumber = searchParams.orderNumber || null;
   useEffect(() => {
     if (session_id) {
       resetCart();

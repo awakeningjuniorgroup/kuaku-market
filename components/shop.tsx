@@ -7,7 +7,6 @@ import { Title } from "./text";
 import CategoryList from "./shop/CategoryList";
 import BrandList from "./shop/BrandList";
 import PriceList from "./shop/PriceList";
-import { useSearchParams } from "next/navigation";
 import { client } from "@/sanity/lib/client";
 import { Loader2 } from "lucide-react";
 import { NoProductAvailable } from "./NoProductAvailable";
@@ -16,18 +15,18 @@ import ProductCard from "./ProductCard";
 interface Props {
   categories: Category[];
   brands: BRANDS_QUERY_RESULT;
+  initialCategory: string | null;
+  initialBrand: string | null;
 }
 
-const ShopContent = ({ categories, brands }: Props) => {
-  const searchParams = useSearchParams();
-  const brandParams = searchParams?.get("brand");
-  const categoryParams = searchParams?.get("category");
+const ShopContent = ({ categories, brands, initialCategory, initialBrand }: Props) => {
+  
 
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(categoryParams || null);
-  const [selectedBrand, setSelectedBrand] = useState<string | null>(brandParams || null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(initialCategory || null);
+  const [selectedBrand, setSelectedBrand] = useState<string | null>(initialBrand || null);
   const [selectedPrice, setSelectedPrice] = useState<string | null>(null);
 
   useEffect(() => {
