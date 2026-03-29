@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Category, Product, BRANDS_QUERYResult } from "@/sanity.types";
+import { Category, Product, BRANDS_QUERY_RESULT } from "@/sanity.types";
 import Container from "./Container";
 import { Title } from "./text";
 import CategoryList from "./shop/CategoryList";
@@ -15,7 +15,7 @@ import ProductCard from "./ProductCard";
 
 interface Props {
   categories: Category[];
-  brands: BRANDS_QUERYResult;
+  brands: BRANDS_QUERY_RESULT;
 }
 
 const ShopContent = ({ categories, brands }: Props) => {
