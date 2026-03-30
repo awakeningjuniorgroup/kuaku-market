@@ -5,7 +5,7 @@ import { urlFor } from '@/sanity/lib/image';
 import { AnimatePresence, motion } from 'motion/react';
 import React, { useState } from 'react'
 import Image from 'next/image';
-import { Button } from './ui/button';
+import { Dialog, DialogTrigger, DialogContent } from './ui/dialog';
 
 interface Props {
     images?: Array<{
@@ -28,33 +28,59 @@ const ImageView = ({ images = [], isStock }: Props) => {
   return (
     <div className="w-full md:-1/2 space-y-2 md:space-y-4">
       <AnimatePresence mode="wait">
-        <motion.div
-            key={active?._key}
-            initial={{opacity: 0}}
-            animate={{ opacity: 1}}
-            exit={{ opacity: 0}}
-            transition={{ duration: 0.5}}
-            className="w-full max-h-[550px] min-h-[450px] border border-darkColor/10
-            rounded-md group overflow-hidden"
+        <Dialog>
+          <DialogTrigger asChild>
+            <button
+              type="button"
+              aria-label="Agrandir l'image du produit"
+              className="w-full"
             >
-            <Image src={urlFor(active).url()}
-            alt="productImage"
-            width={600}
-            height={600}
-            priority
-            className={`w-full h-96 max-h-[550px] min-h-[500px] object-contain
-                group-hover:scale-100 hoverEffect rounded-md ${
-                isStock === 0 ? "opacity-50" : ""}`} />
-        </motion.div>
+              <motion.div
+                key={active?._key}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className="w-full max-h-[550px] min-h-[450px] border border-darkColor/10 rounded-md group overflow-hidden"
+              >
+                <Image
+                  src={urlFor(active).url()}
+                  alt="productImage"
+                  width={600}
+                  height={600}
+                  priority
+                  className={`w-full h-96 max-h-[550px] min-h-[500px] object-contain group-hover:scale-100 hoverEffect rounded-md ${
+                    isStock === 0 ? "opacity-50" : ""}
+                  `}
+                />
+              </motion.div>
+            </button>
+          </DialogTrigger>
+          <DialogContent className="max-w-[90vw] sm:max-w-[80vw] p-0 bg-transparent shadow-none">
+            <div className="overflow-hidden rounded-xl bg-white">
+              <Image
+                src={urlFor(active).url()}
+                alt={active?._key ? `Product image ${active._key}` : "Product image"}
+                width={1200}
+                height={1200}
+                priority
+                className="w-full h-auto max-h-[80vh] object-contain bg-shop_light_bg"
+              />
+            </div>
+          </DialogContent>
+        </Dialog>
       </AnimatePresence>
       <div className="grid grid-cols-6 gap-2 h-20 md:h-24">
-        {images?.map((image)=>(
-            <button key={image?._key}
+        {images?.map((image, index)=>(
+            <button
+                key={image?._key}
+                type="button"
                 onClick={() => setActive(image)}
+                aria-label={`Voir l'image ${index + 1}`}
                 className={`border rounded-md overflow-hidden 
                 ${active?._key === image?._key ? " ring-1 border-shop_light_green opacity-100" : "opacity-100"}`}>
                 <Image src={urlFor(image).url()}
-                    alt={`Thumbnail ${image._key}`}
+                    alt={`Miniature ${image._key}`}
                     width={100}
                     height={100}
                     className="w-full h-auto object-contain"

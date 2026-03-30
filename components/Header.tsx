@@ -7,6 +7,7 @@ import SearchBar from "./SearchBar";
 import CartIcons from "./CartIcons";
 import FavouriteButton from "./FavouriteButton";
 import MobileMenu from "./MobileMenu";
+import SignIn from "./SignIn";
 
 const Header = () => {
   return (
@@ -21,6 +22,7 @@ const Header = () => {
           <SearchBar />
           <CartIcons />
           <FavouriteButton />
+          <SignIn />
         </div>
       </Container>
     </header>
