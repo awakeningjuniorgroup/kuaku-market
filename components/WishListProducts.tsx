@@ -136,7 +136,7 @@ const WishListProducts = () => {
           )}
         </>
       ) : (
-        <div className="flex min-h-400 flex-col items-center justify-center space-y-6 px-4 text-center">
+        <div className="flex min-h-400 flex-col items-center justify-center scroll-smooth space-y-6 px-4 text-center">
           <div className="relative mb-4">
             <div className="absolute -top-1 -right-1 h-4 w-4 animate-ping rounded-full bg-muted-foreground/20" />
             <Heart

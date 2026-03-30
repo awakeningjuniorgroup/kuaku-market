@@ -23,8 +23,6 @@ export const categoriesData = [
      { title: "Gadgets Accessoires", href: "gadget-accessoires"},
 ];
 export const productType = [
-     {title: "Men", value: "men"},
-     {title: "Women", value: "women"},
      {title: "Children", value: "children"},
-     {title: "All Gender", value: "all gender"},
+     {title: "Adults", value: "all gender"},
 ]
