@@ -10,7 +10,6 @@ export interface Metadata {
   orderNumber: string;
   customerName: string;
   customerEmail: string;
-  clerkUserId?: string;
   address?: Address | null;
 }
 
@@ -36,7 +35,6 @@ export async function createCheckoutSession(
         orderNumber: metadata.orderNumber,
         customerName: metadata.customerName,
         customerEmail: metadata.customerEmail,
-        clerkUserId: metadata.clerkUserId!,
         address: JSON.stringify(metadata.address),
       },
       mode: "payment",

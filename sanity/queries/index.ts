@@ -90,11 +90,10 @@ const getBrand = async (slug: string) => {
     return null;
   }
 };
-const getMyOrders = async (userId: string) => {
+const getMyOrders = async () => {
   try {
     const orders = await sanityFetch({
       query: MY_ORDERS_QUERY,
-      params: { userId },
     });
     return orders?.data || null;
   } catch (error) {

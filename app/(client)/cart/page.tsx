@@ -6,7 +6,6 @@ import {
 } from "@/actions/CreateCheckoutSession";
 import Container from "@/components/Container";
 import EmptyCart from "@/components/EmptyCart";
-import NoAccessToCart from "@/components/NoAccessToCart";
 import PriceFormatter from "@/components/PriceFormatter";
 import ProductSideMenu from "@/components/ProductSideMenu";
 import QuantityButtons from "@/components/QuantityButtons";
@@ -26,7 +25,6 @@ import { Address } from "@/sanity.types";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import useStore from "@/store";
-import { useAuth, useUser } from "@clerk/nextjs";
 import { ShoppingBag, Trash } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -43,8 +41,6 @@ const CartPage = () => {
   } = useStore();
   const [loading, setLoading] = useState(false);
   const groupedItems = useStore((state) => state.getGroupedItems());
-  const { isSignedIn } = useAuth();
-  const { user } = useUser();
   const [addresses, setAddresses] = useState<Address[] | null>(null);
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
 
@@ -84,9 +80,8 @@ const CartPage = () => {
     try {
       const metadata: Metadata = {
         orderNumber: crypto.randomUUID(),
-        customerName: user?.fullName ?? "Unknown",
-        customerEmail: user?.emailAddresses[0]?.emailAddress ?? "Unknown",
-        clerkUserId: user?.id,
+        customerName: "Guest Customer",
+        customerEmail: "guest@example.com",
         address: selectedAddress,
       };
       const checkoutUrl = await createCheckoutSession(groupedItems, metadata);
@@ -101,7 +96,6 @@ const CartPage = () => {
   };
   return (
     <div className="bg-gray-50 pb-52 md:pb-10">
-      {isSignedIn ? (
         <Container>
           {groupedItems?.length ? (
             <>
@@ -326,9 +320,7 @@ const CartPage = () => {
             <EmptyCart />
           )}
         </Container>
-      ) : (
-        <NoAccessToCart />
-      )}
+     
     </div>
   );
 };

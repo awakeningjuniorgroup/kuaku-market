@@ -5,20 +5,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Table, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { getMyOrders } from '@/sanity/queries';
-import { auth } from '@clerk/nextjs/server';
 import { FileX } from 'lucide-react';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import React from 'react'
 import { ScrollBar } from '@/components/ui/scroll-area';
 
 const OrdersPage = async () => {
-    const { userId } = await auth();
-    if (!userId) {
-        return redirect("/");
-    }
-
-    const orders = await getMyOrders(userId);
+    const orders = await getMyOrders();
     console.log(orders)
   return (
     <div className="py-10">

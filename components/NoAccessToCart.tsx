@@ -1,8 +1,8 @@
 import React from 'react'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card'
 import Logo from './Logo'
-import { SignInButton, SignUpButton } from '@clerk/nextjs'
 import { Button } from './ui/button'
+import Link from 'next/link'
 
 const NoAccessToCart = ({
     details = "Log in to view your cart items and checkout. don't miss out on your favorite products! "
@@ -19,23 +19,16 @@ const NoAccessToCart = ({
         </CardHeader>
         <CardContent className="space-y-4">
             <p className="text-center font-semibold text-darkColor/80">{details}</p>
-            <SignInButton>
-                <Button mode="modal" className="w-full" size="lg">Sign in</Button>
-            </SignInButton>
+            <Link href="/">
+              <Button className="w-full" size="lg">Browse Products</Button>
+            </Link>
         </CardContent>
         <CardFooter className="flex flex-col space-x-2">
             <div className="text-sm text-muted-foreground text-center">
-                Don&rsquo;t have an account?
+                Continue shopping to see your saved items.
             </div>
-            <SignUpButton mode="modal">
-                <Button variant="outline" className="w-full" size="lg">
-                    Create an account
-                </Button>
-            </SignUpButton>
         </CardFooter>
       </Card>
-        
-        
     </div>
   )
 }
