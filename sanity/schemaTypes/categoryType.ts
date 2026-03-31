@@ -27,11 +27,6 @@ export const categoryType = defineType({
             type: "text",
         }),
          defineField({
-            name: "range",
-            type: "number",
-            description: "Starting from",
-        }),
-         defineField({
             name: "featured",
             type: "boolean",
             initialValue: false

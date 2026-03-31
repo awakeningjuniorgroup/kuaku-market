@@ -14,13 +14,11 @@ export const quickLinksData = [
      { title: "Help", href: "/help"},
 ];
 export const categoriesData = [
-     { title: "Mobiles", href: "mobiles"},
-     { title: "Appliances", href: "appliances"},
-     { title: "SmartPhones", href: "smartphones"},
-     { title: "Air Conditioners", href: "air-conditioners"},
-     { title: "Washing Machine", href: "washing-machine"},
-     { title: "Kitchen Appliances", href: "kitchen-appliances"},
-     { title: "Gadgets Accessoires", href: "gadget-accessoires"},
+     { title: "Body", href: "corps"},
+     { title: "Face", href: "face"},
+     { title: "Hairs", href: "hairs"},
+     { title: "Babies", href: "babies"},
+     { title: "Sun protection", href: "sun protection"},
 ];
 export const productType = [
      {title: "Children", value: "children"},
