@@ -40,7 +40,7 @@ const HomeCategories: React.FC<HomeCategoriesProps> = ({ categories }) => {
                 <h3 className="text-base font-semibold">{category?.title}</h3>
                 <p className="text-sm">
                     <span className="font-bold text-shop_light_green">
-                        {`(${category?.productCount})`}
+                        {`(${(category as unknown as { productCount?: number }).productCount ?? 0})`}
                     </span> items Available </p>
             </div>
           </div>
