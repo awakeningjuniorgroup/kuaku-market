@@ -100,10 +100,9 @@ export const productType = defineType({
       type: "string",
       options: {
         list: [
-          { title: "Men", value: "men" },
-          { title: "Women", value: "women" },
-          { title: "Children", value: "children" },
-          { title: "All Gender", value: "all gender" },
+          { title: "Adult", value: "adult" },
+          { title: "Children", value: "children" }
+         
         ],
       },
       validation: (Rule) => Rule.required(),
