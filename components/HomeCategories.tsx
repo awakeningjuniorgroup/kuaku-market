@@ -15,6 +15,7 @@ const HomeCategories: React.FC<HomeCategoriesProps> = ({ categories }) => {
       <Title className="border-b pb-3">Popular Categories</Title>
       <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {categories?.map((category) => (
+          
           <div
             key={category?._id}
             className="bg-shop_light_bg p-5 flex items-center gap-3"
