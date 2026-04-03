@@ -2,12 +2,12 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Button } from './ui/button';
-import heroImg1 from "../images/banner/1.jpg";
-import heroImg2 from "../images/banner/2.jpg";
-import heroImg3 from "../images/banner/3.jpg";
-import heroImg4 from "../images/banner/4.jpg";
-import heroImg5 from "../images/banner/5.jpg";
-import heroImg6 from "../images/banner/6.jpg";
+import heroImg1 from "../images/banner/Avène 1.png";
+import heroImg2 from "../images/banner/BON 2.jpg";
+import heroImg3 from "../images/banner/CeraVe.png";
+import heroImg4 from "../images/banner/Gemini_Generated_Image_5dxejp5dxejp5dxe.png";
+import heroImg5 from "../images/banner/Gemini_Generated_Image_ke17axke17axke17.png";
+import heroImg6 from "../images/banner/Gemini_Generated_Image_r0eyczr0eyczr0ey.png";
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
