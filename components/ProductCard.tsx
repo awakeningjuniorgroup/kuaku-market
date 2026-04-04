@@ -13,7 +13,7 @@ import AddToCartButton from "./AddToCartButton";
 const ProductCard = ({ product }: { product: Product }) => {
   return (
     <div className="text-sm border rounded-md border-darkBlue/20 group bg-white">
-      <div className="relative group overflow-hidden bg-shop_light_bg">
+      <div className="relative group overflow-hidden bg-shop_light_bg ">
         {product?.images && (
           <Link href={`/product/${product?.slug?.current}`}>
             <Image
@@ -51,7 +51,7 @@ const ProductCard = ({ product }: { product: Product }) => {
             {product.categories.map((cat) => cat).join(", ")}
           </p>
         )}
-        <Title className="text-sm line-clamp-1">{product?.name}</Title>
+        <Title className="text-sm ">{product?.name}</Title>
         <div className="flex items-center gap-2">
           <div className="flex items-center">
             {[...Array(5)].map((_, index) => (

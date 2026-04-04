@@ -10,8 +10,8 @@ interface Props {
 }
 const PriceView = ({ price, discount, className }: Props) => {
   return (
-    <div className="flex items-center justify-between gap-5">
-      <div className="flex items-center gap-2">
+    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center">
         <PriceFormatter
           amount={price}
           className={cn("text-shop_dark_green", className)}

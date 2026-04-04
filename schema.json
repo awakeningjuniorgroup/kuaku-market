@@ -1616,26 +1616,22 @@
         },
         "optional": true
       },
-      "variant": {
+      "type": {
         "type": "objectAttribute",
         "value": {
           "type": "union",
           "of": [
             {
               "type": "string",
-              "value": "men"
-            },
-            {
-              "type": "string",
-              "value": "women"
-            },
-            {
-              "type": "string",
               "value": "children"
             },
             {
               "type": "string",
-              "value": "all gender"
+              "value": "adults"
+            },
+            {
+              "type": "string",
+              "value": "all genders"
             }
           ]
         },
@@ -1810,6 +1806,13 @@
         "type": "objectAttribute",
         "value": {
           "type": "string"
+        },
+        "optional": true
+      },
+      "range": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
         },
         "optional": true
       },

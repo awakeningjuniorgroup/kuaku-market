@@ -12,16 +12,16 @@ const HomeTabBar = ({selectedTab, onTabSelect}:Props) => {
         <div className="flex items-center gap-3 text-sm font-semibold">
             {productType?.map((item) => (
                 <button 
-                onClick={() => onTabSelect(item?.title)}
-                key={item?.title} 
+                onClick={() => onTabSelect(item?.value)}
+                key={item?.value} 
                 className={`border border-shop_light_green/20 px-4 py-1.5 md:px-6 md:py-2 rounded-full
                      hover:bg-shop_light_green hover:border-shop_light_green hover:text-white hoverEffect
-                     ${selectedTab === item?.title ? "bg-shop_light_green text-white border-shop_light_green" : "bg-shop_light_green/15"}`}>{item?.title}</button>
+                     ${selectedTab === item?.value ? "bg-shop_light_green text-white border-shop_light_green" : "bg-shop_light_green/15"}`}>{item?.title}</button>
             ))}
         </div>
         <div className="">
-            <Link href={"/shop"} className={`border border-shop_light_green/30 px-4 py-1.5 md:px-6 md:py-2 rounded-full underline
-                     hover:bg-shop_light_green hover:border-shop_light_green hover:text-white hoverEffect`}>See all</Link>   
+            <Link href={"/shop"} 
+                className={`border border-shop_light_green/30 px-4 py-1.5 md:px-6 md:py-2 rounded-full underline hover:bg-shop_light_green hover:border-shop_light_green hover:text-white hoverEffect`}>See all</Link>   
         </div>
       
     </div>
