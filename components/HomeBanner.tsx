@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Button } from './ui/button';
-import heroImg1 from "../images/banner/Bannière principal.png";
+import heroImg1 from "../images/banner/Bannière.jpg";
 import heroImg2 from "../images/banner/Gemini_Generated_Image_r0eyczr0eyczr0ey.png";
 import heroImg3 from "../images/banner/Avène 1.png";
 import heroImg4 from "../images/banner/Gemini_Generated_Image_5dxejp5dxejp5dxe.png";
