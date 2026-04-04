@@ -10,12 +10,12 @@ import { GitCompareArrows, PhoneCallIcon, ShieldCheck, Truck } from "lucide-reac
 const extraData = [
     {
         title: "Delivery",
-        description: "Free shipping over 100000 FCFA",
+        description: " Shipping ",
         icon: <Truck size={45} />
     },
      {
         title: "Free Return",
-        description: "Free shipping over 100000 FCFA",
+        description: "Return products",
         icon: <GitCompareArrows size={45} />
     },
      {
@@ -40,7 +40,7 @@ const ShopByBrands = async () => {
         <Title>Shop by Brands</Title>
         <Link
           href="/shop"
-          className="text-sm font-semibold tracking-wide hover:text-shop_btn_dark_green hoverEffect"
+          className="text-sm font-semibold tracking-wide underline hover:text-shop_btn_dark_green hoverEffect"
         >
           View All
         </Link>
