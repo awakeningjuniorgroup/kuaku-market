@@ -95,17 +95,16 @@ export const productType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "Type",
+      name: "variant",
       title: "Product Type",
       type: "string",
       options: {
         list: [
+          { title: "Children", value: "children" },
           { title: "Adults", value: "adults" },
-          { title: "Children", value: "children" }
-         
+          { title: "All genders", value: "all-genders" }
         ],
       },
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "isFeatured",

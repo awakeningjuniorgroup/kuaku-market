@@ -23,4 +23,5 @@ export const categoriesData = [
 export const productType = [
      {title: "Children", value: "children"},
      {title: "Adults", value: "adults"},
+      { title: "All genders", value: "all-genders" }
 ]

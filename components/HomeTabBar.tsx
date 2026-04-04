@@ -20,7 +20,7 @@ const HomeTabBar = ({selectedTab, onTabSelect}:Props) => {
             ))}
         </div>
         <div className="">
-            <Link href={"/shop"} className={`border border-shop_light_green/30 px-4 py-1.5 md:px-6 md:py-2 rounded-full
+            <Link href={"/shop"} className={`border border-shop_light_green/30 px-4 py-1.5 md:px-6 md:py-2 rounded-full underline
                      hover:bg-shop_light_green hover:border-shop_light_green hover:text-white hoverEffect`}>See all</Link>   
         </div>
       

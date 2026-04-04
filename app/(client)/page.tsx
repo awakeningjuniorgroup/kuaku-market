@@ -10,6 +10,7 @@ import LatestBlog from '@/components/LatestBlog';
 
 const Home = async () => {
   const categories = await getCategories();
+ 
 
   return (
     <Container className="bg-shop-light-pink">
