@@ -5,6 +5,7 @@ import { Search, X } from 'lucide-react';
 import { client } from '@/sanity/lib/client';
 import { Product } from '@/sanity.types';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -77,7 +78,7 @@ const SearchBar = () => {
       <form onSubmit={handleSearch} className="relative">
         <input
           type="text"
-          placeholder="Chercher un produit..."
+          placeholder="Search..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           onFocus={() => searchTerm && setIsOpen(true)}
@@ -107,7 +108,7 @@ const SearchBar = () => {
       {isOpen && (searchTerm.trim().length > 0) && (
         <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-shop_light_green/30 rounded-lg shadow-lg z-50">
           {isLoading ? (
-            <div className="p-4 text-center text-gray-500">Recherche en cours...</div>
+            <div className="p-4 text-center text-gray-500">Searching...</div>
           ) : suggestions.length > 0 ? (
             <ul className="max-h-80 overflow-y-auto">
               {suggestions.map((product) => (
@@ -118,7 +119,7 @@ const SearchBar = () => {
                     className="w-full px-4 py-3 text-left hover:bg-shop_light_green/10 transition flex items-center gap-3 border-b border-shop_light_green/10 last:border-0"
                   >
                     {product.images && product.images[0] && (
-                      <img
+                      <Image
                         src={product.images[0]?.asset?.url || ''}
                         alt={product.name}
                         className="w-10 h-10 object-cover rounded"
@@ -137,13 +138,13 @@ const SearchBar = () => {
                   onClick={handleSearch}
                   className="w-full px-4 py-2 text-center text-sm text-shop_light_green hover:bg-shop_light_green/10 font-medium transition border-t border-shop_light_green/10"
                 >
-                  Voir tous les résultats
+                  View all products
                 </button>
               </li>
             </ul>
           ) : (
             <div className="p-4 text-center text-gray-500 text-sm">
-              Aucun produit trouvé pour "{searchTerm}"
+              Product not found `{searchTerm}`
             </div>
           )}
         </div>
