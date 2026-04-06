@@ -1623,7 +1623,7 @@
           "of": [
             {
               "type": "string",
-              "value": "children"
+              "value": "all-genders"
             },
             {
               "type": "string",
@@ -1631,7 +1631,7 @@
             },
             {
               "type": "string",
-              "value": "all-genders"
+              "value": "children"
             }
           ]
         },

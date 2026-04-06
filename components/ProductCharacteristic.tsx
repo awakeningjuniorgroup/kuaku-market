@@ -25,7 +25,7 @@ const ProductCharacteristic = async({
             </p>
              <p className="flex items-center justify-between">
                 Type:{" "}
-                <span className="font-semibold tracking-wide">{product?.variant}</span>
+                <span className="font-semibold tracking-wide">{product?.type}</span>
             </p>
              <p className="flex items-center justify-between">
                 Stock:{" "}

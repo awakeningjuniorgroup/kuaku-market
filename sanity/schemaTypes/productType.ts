@@ -100,9 +100,10 @@ export const productType = defineType({
       type: "string",
       options: {
         list: [
-        { title: "Children", value: "children" },
-         { title: "Adults", value: "adults" },
-         { title: "All genders", value: "all-genders" }
+          { title: "Adults", value: "adults" },
+          { title: "All genders", value: "all-genders" },
+          { title: "Children", value: "children" }
+        
         ],
       },
     }),
