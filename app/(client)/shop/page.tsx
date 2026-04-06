@@ -1,5 +1,5 @@
 import React from "react";
-import ShopContent from "@/components/ShopContent";
+import ShopContent from "@/components/shop";
 import { client } from "@/sanity/lib/client";
 
 interface Props {
