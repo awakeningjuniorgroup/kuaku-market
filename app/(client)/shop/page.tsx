@@ -6,8 +6,8 @@ import ShopContent from "@/components/shop";
 import { client } from "@/sanity/lib/client";
 import { Category, BRANDS_QUERY_RESULT } from "@/sanity.types";
 
-
-const ShopPage = () => {
+// Create a separate component to handle search params and data fetching
+const ShopPageContent = () => {
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get("category");
   const brandSlug = searchParams.get("brand");
@@ -16,7 +16,6 @@ const ShopPage = () => {
   const [brands, setBrands] = useState<BRANDS_QUERY_RESULT>([]);
 
   useEffect(() => {
-    // Charger catégories et marques au montage
     const fetchData = async () => {
       const categoriesQuery = `*[_type == "category"]{_id, title, slug}`;
       const brandsQuery = `*[_type == "brand"]{_id, title, slug}`;
@@ -34,13 +33,19 @@ const ShopPage = () => {
   }, []);
 
   return (
-    <Suspense fallback={ <div>Loading ...</div>}>
-      <ShopContent
-        categories={categories}
-        brands={brands}
-        initialCategory={categorySlug}
-        initialBrand={brandSlug}
-      />
+    <ShopContent
+      categories={categories}
+      brands={brands}
+      initialCategory={categorySlug}
+      initialBrand={brandSlug}
+    />
+  );
+};
+
+const ShopPage = () => {
+  return (
+    <Suspense fallback={<div>Loading ...</div>}>
+      <ShopPageContent />
     </Suspense>
   );
 };
