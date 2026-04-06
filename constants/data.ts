@@ -24,7 +24,7 @@ export const productType = [
 
      { title: "Adults", value: "adults" },
      { title: "Children", value: "children" },
-          { title: "All genders", value: "all-genders" }
+     { title: "All genders", value: "all-genders" }
     
     
 ]

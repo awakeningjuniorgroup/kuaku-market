@@ -14,11 +14,17 @@ import { Product } from "@/sanity.types";
 const ProductGrid = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
-  const [selectedTab, setSelectedTab] = useState(productType[0]?.title || "");
+  const [selectedTab, setSelectedTab] = useState(productType[0]?.value || "");
   const query = `*[_type == 'product' && type == $variant][0...15] | order(name asc){
   ...,"categories": categories[]->title
 }`;
-  const params = { variant: selectedTab.toLowerCase() };
+
+
+// Instead of using selectedTab.toLowerCase(), find the matching value:
+const selectedTypeValue = productType.find(pt => pt.title === selectedTab)?.value || "";
+
+const params = { variant: selectedTypeValue };
+
 
   useEffect(() => {
     const fetchData = async () => {
