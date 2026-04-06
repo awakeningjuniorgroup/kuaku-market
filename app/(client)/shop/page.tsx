@@ -1,25 +1,47 @@
-import React from "react";
+"use client";
+
+import React, { Suspense, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import ShopContent from "@/components/shop";
 import { client } from "@/sanity/lib/client";
+import { Category, BRANDS_QUERY_RESULT } from "@/sanity.types";
 
-interface Props {
-  searchParams: { category?: string; brand?: string };
-}
 
-const ShopPage = async ({ searchParams }: Props) => {
-  const categorySlug = searchParams.category || null;
-  const brandSlug = searchParams.brand || null;
+const ShopPage = () => {
+  const searchParams = useSearchParams();
+  const categorySlug = searchParams.get("category");
+  const brandSlug = searchParams.get("brand");
 
-  const categories = await client.fetch(`*[_type == "category"]{_id, title, slug}`);
-  const brands = await client.fetch(`*[_type == "brand"]{_id, title, slug}`);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [brands, setBrands] = useState<BRANDS_QUERY_RESULT>([]);
+
+  useEffect(() => {
+    // Charger catégories et marques au montage
+    const fetchData = async () => {
+      const categoriesQuery = `*[_type == "category"]{_id, title, slug}`;
+      const brandsQuery = `*[_type == "brand"]{_id, title, slug}`;
+
+      const [cats, brs] = await Promise.all([
+        client.fetch(categoriesQuery),
+        client.fetch(brandsQuery),
+      ]);
+
+      setCategories(cats);
+      setBrands(brs);
+    };
+
+    fetchData();
+  }, []);
 
   return (
-    <ShopContent
-      categories={categories}
-      brands={brands}
-      initialCategory={categorySlug}
-      initialBrand={brandSlug}
-    />
+    <Suspense fallback={ <div>Loading ...</div>}>
+      <ShopContent
+        categories={categories}
+        brands={brands}
+        initialCategory={categorySlug}
+        initialBrand={brandSlug}
+      />
+    </Suspense>
   );
 };
 
