@@ -6,6 +6,7 @@ import ShopContent from "@/components/shop";
 import { client } from "@/sanity/lib/client";
 import { Category, BRANDS_QUERY_RESULT } from "@/sanity.types";
 
+
 const ShopPage = () => {
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get("category");
@@ -43,8 +44,14 @@ const ShopPage = () => {
         initialBrand={brandSlug}
     />
       }
+    
     >
-      
+      <ShopContent
+      categories={categories}
+      brands={brands}
+      initialCategory={categorySlug}
+      initialBrand={brandSlug}
+      />
     </Suspense>
   );
 };
