@@ -1,6 +1,6 @@
 import { defineQuery } from "next-sanity";
 
-const BRANDS_QUERY = defineQuery(`*[_type=='brand'] | order(name asc) `);
+const BRANDS_QUERY = defineQuery(`*[_type=='brand']  | order(name asc) `);
 
 const LATEST_BLOG_QUERY = defineQuery(
     `*[_type == 'blog' && isLastest == false] |order(name asc) {
@@ -21,9 +21,7 @@ const PRODUCT_BY_SLUG_QUERY = defineQuery(
   `*[_type == "product" && slug.current == $slug] | order(name asc) [0]`
 );
 
-const BRAND_QUERY = defineQuery(`*[_type == "product" && slug.current == $slug]{
-  "brandName": brand->title
-  }`);
+const BRAND_QUERY = defineQuery(`*[_type == "brand" && slug.current == $slug]`);
 
 const MY_ORDERS_QUERY =
   defineQuery(`*[_type == 'order'] | order(orderData desc){
