@@ -21,8 +21,10 @@ export const categoriesData = [
      { title: "Sun protection", href: "sun protection"},
 ];
 export const productType = [
+
      { title: "Adults", value: "adults" },
-     { title: "Children", value: "children" }
+     { title: "Children", value: "children" },
+          { title: "All genders", value: "all-genders" }
     
     
 ]

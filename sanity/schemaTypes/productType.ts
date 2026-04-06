@@ -101,9 +101,8 @@ export const productType = defineType({
       options: {
         list: [
           { title: "Adults", value: "adults" },
-          { title: "All genders", value: "all-genders" },
-          { title: "Children", value: "children" }
-        
+          { title: "Children", value: "children" },
+          { title: "All genders", value: "all-genders" }
         ],
       },
     }),
