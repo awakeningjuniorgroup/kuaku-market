@@ -31,6 +31,7 @@ const extraData = [
     
 ]
 
+
 const ShopByBrands = async () => {
   const brands = await getAllBrands();
 
