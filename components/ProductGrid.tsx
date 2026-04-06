@@ -12,28 +12,30 @@ import { productType } from "@/constants/data";
 import { Product } from "@/sanity.types";
 
 const ProductGrid = () => {
+  // Initialiser selectedTab avec le title du premier élément pour que le premier bouton soit sélectionné par défaut
+  const [selectedTab, setSelectedTab] = useState(productType[0]?.title || "");
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
-  const [selectedTab, setSelectedTab] = useState(productType[0]?.value || "");
+
+  // Requête GROQ pour récupérer les produits filtrés par type
   const query = `*[_type == 'product' && type == $variant][0...15] | order(name asc){
-  ...,"categories": categories[]->title
-}`;
+    ...,
+    "categories": categories[]->title
+  }`;
 
+  // Trouver la valeur 'value' correspondant au titre sélectionné (selectedTab)
+  const selectedTypeValue = productType.find(pt => pt.title === selectedTab)?.value || "";
 
-// Instead of using selectedTab.toLowerCase(), find the matching value:
-const selectedTypeValue = productType.find(pt => pt.title === selectedTab)?.value || "";
-
-const params = { variant: selectedTypeValue };
-
+  const params = { variant: selectedTypeValue };
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
         const response = await client.fetch(query, params);
-        setProducts(await response);
+        setProducts(response);
       } catch (error) {
-        console.log("Product fetching Error", error);
+        console.error("Product fetching Error", error);
       } finally {
         setLoading(false);
       }
@@ -53,20 +55,18 @@ const params = { variant: selectedTypeValue };
         </div>
       ) : products?.length ? (
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 mt-10">
-          <>
-            {products?.map((product) => (
-                  <AnimatePresence key={product?._id}>
-                <motion.div
-                  layout
-                  initial={{ opacity: 0.2 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <ProductCard key={product?._id} product={product} />
-                </motion.div>
-              </AnimatePresence>
-            ))}
-          </>
+          {products.map((product) => (
+            <AnimatePresence key={product?._id}>
+              <motion.div
+                layout
+                initial={{ opacity: 0.2 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <ProductCard key={product?._id} product={product} />
+              </motion.div>
+            </AnimatePresence>
+          ))}
         </div>
       ) : (
         <NoProductAvailable selectedTab={selectedTab} />
