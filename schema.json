@@ -1631,7 +1631,7 @@
             },
             {
               "type": "string",
-              "value": "all genders"
+              "value": "all-genders"
             }
           ]
         },
