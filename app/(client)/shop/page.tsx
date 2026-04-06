@@ -1,5 +1,5 @@
 "use client";
-
+import { Suspense } from "react";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import ShopContent from "@/components/shop";
@@ -33,12 +33,19 @@ const ShopPage = () => {
   }, []);
 
   return (
-    <ShopContent
-      categories={categories}
-      brands={brands}
-      initialCategory={categorySlug}
-      initialBrand={brandSlug}
+    
+     <Suspense
+        fallback={
+          <ShopContent
+        categories={categories}
+        brands={brands}
+        initialCategory={categorySlug}
+        initialBrand={brandSlug}
     />
+      }
+    >
+      
+    </Suspense>
   );
 };
 
