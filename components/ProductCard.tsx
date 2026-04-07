@@ -51,7 +51,7 @@ const ProductCard = ({ product }: { product: Product }) => {
             {product.categories.map((cat) => cat).join(", ")}
           </p>
         )}
-        <Title className="text-sm line-clamp-2 uppercase">{product?.name}</Title>
+        <Title className="text-sm line-clamp-2 uppercase text-[#6FD3C1]">{product?.name}</Title>
         <div className="flex items-center gap-2">
           <div className="flex items-center">
             {[...Array(5)].map((_, index) => (
