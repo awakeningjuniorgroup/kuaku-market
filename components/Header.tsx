@@ -11,7 +11,7 @@ import SignIn from "./SignIn";
 
 const Header = () => {
   return (
-    <header className="fixed mb-2 top-0 left-0 w-full bg-white z-50 shadow-md ">
+    <header className="fixed top-0 left-0 w-full bg-white z-50 shadow-md ">
       <Container className="flex items-center justify-between  text-lightColor">
         <div className="w-auto md:w-1/3 flex items-center gap-2.5 justify-start md:gap-0">
           <MobileMenu />

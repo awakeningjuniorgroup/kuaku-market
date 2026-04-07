@@ -1,14 +1,13 @@
-import React from 'react';
-import Container from './Container';
-import FooterTop from './FooterTop';
-import Logo from './Logo';
-import SocialMedia from './SocialMedia';
-import { SubText, SubTitle } from './text';
-import { categoriesData, quickLinksData } from '@/constants/data';
-import Link from 'next/link';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
-import { Copyright } from 'lucide-react';
+import React from "react";
+import Container from "./Container";
+import FooterTop from "./FooterTop";
+import Logo from "./Logo";
+import SocialMedia from "./SocialMedia";
+import { SubTitle, SubText } from "./text";
+import { categoriesData, quickLinksData } from "@/constants/data";
+import Link from "next/link";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
 const Footer = () => {
   return (
@@ -19,18 +18,16 @@ const Footer = () => {
           <div className="space-y-4">
             <Logo />
             <SubText>
-              Discover curated furniture collections at Kuaku market, blending
+              Discover curated furniture collections at Shopcartyt, blending
               style and comfort to elevate your living spaces.
             </SubText>
             <SocialMedia
               className="text-darkColor/60"
-              iconClassName="border-darkColor/60 hover:border-shop_dark_green hover:text-shop_dark_green"
-              tooltipclassName="bg-darkColor text-white"
+              iconClassName="border-darkColor/60 hover:border-shop_light_green hover:text-shop_light_green"
             />
           </div>
-
           <div>
-            <SubTitle className="mb-5">Quick Links</SubTitle>
+            <SubTitle>Quick Links</SubTitle>
             <ul className="space-y-3 mt-4">
               {quickLinksData?.map((item) => (
                 <li key={item?.title}>
@@ -44,9 +41,8 @@ const Footer = () => {
               ))}
             </ul>
           </div>
-
           <div>
-            <SubTitle className="mb-5">Categories Links</SubTitle>
+            <SubTitle>Categories</SubTitle>
             <ul className="space-y-3 mt-4">
               {categoriesData?.map((item) => (
                 <li key={item?.title}>
@@ -60,23 +56,22 @@ const Footer = () => {
               ))}
             </ul>
           </div>
-
           <div className="space-y-4">
             <SubTitle>Newsletter</SubTitle>
             <SubText>
-              Subscribe to our newsletter to receive updates and exclusive offers
+              Subscribe to our newsletter to receive updates and exclusive
+              offers
             </SubText>
-            <form className="space-y-3" aria-label="Subscribe to newsletter">
+            <form className="space-y-3">
               <Input placeholder="Enter your email" type="email" required />
               <Button className="w-full">Subscribe</Button>
             </form>
           </div>
         </div>
-
-        <div className="py-6 border-t text-center text-sm text-gray-600 mt-8">
-          <div className="flex items-center justify-center gap-2">
-            <Copyright />
-            <span>{new Date().getFullYear()} <span className="hover:text-shop_light_green hover:scale-3d">Awakening Group</span>. All rights reserved.</span>
+        <div className="py-6 border-t text-center text-sm text-gray-600">
+          <div>
+            © {new Date().getFullYear()}. All
+            rights reserved by Kuaku market . Created by Awakening Group
           </div>
         </div>
       </Container>

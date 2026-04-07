@@ -41,7 +41,7 @@ const AddToCartButton = ({ product, className }: Props) => {
   };
 
   return (
-    <div className="w-full h-10 flex items-center">
+    <div className=" h-10 flex items-center">
       {itemCount ? (
         <div className="w-full text-sm">
           <div className="flex items-center justify-between">

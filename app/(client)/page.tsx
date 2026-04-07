@@ -15,10 +15,10 @@ const Home = async () => {
   return (
     <Container className="bg-shop-light-pink">
       <HomeBanner />
+      <HomeCategories categories={categories} />
       <div className="py-10">
         <ProductGrid />
       </div>
-      <HomeCategories categories={categories} />
       <ShopByBrands />
       <LatestBlog />
     </Container>

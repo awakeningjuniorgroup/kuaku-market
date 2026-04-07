@@ -3,15 +3,13 @@ export const headerData = [
     { title: "Shop", href: "/shop" },
     { title: "Blog", href: "/blog" },
     { title: "HotDeal", href: "/deal" },
-     // { title: "Contact", href: "/contact" },
+    
 ];
 export const quickLinksData = [
-     { title: "About Us", href: "/about"},
-     { title: "Contact Us", href: "/contact"},
-     { title: "Terms & Conditions", href: "/terms"},
+     { title: "Terms & Conditions", href: "/term"},
      { title: "Privacy & Policy", href: "/privacy"},
-     { title: "FAQs", href: "/faqs"},
-     { title: "Help", href: "/help"},
+     { title: "FAQs", href: "/faqs"}
+     
 ];
 export const categoriesData = [
      { title: "Body", href: "corps"},

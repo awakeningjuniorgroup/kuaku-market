@@ -26,7 +26,7 @@ const SocialLink = [
   },
   {
     title: "Instagram",
-    href: "https://www.instagram.com/",
+    href: "https://www.instagram.com/kuakumarket/",
     icon: <Instagram className="w-5 h-5" />,
   },
 ];
