@@ -1,99 +1,54 @@
-"use client"
-import React, { useState } from 'react'
-import { Category, Product } from '@/sanity.types';
-import { useRouter } from 'next/navigation';
-import { Button } from './ui/button';
+// pages/brands.tsx
+import React from 'react';
 import { client } from '@/sanity/lib/client';
-import { useEffect } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
-import { Loader2 } from 'lucide-react';
-import { NoProductAvailable } from './NoProductAvailable';
-import ProductCard from './ProductCard';
 
-interface Props {
-    categories: Category[];
-    slug: string;
+interface Brand {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  // ajoutez d'autres champs selon votre schéma Sanity
 }
 
-const CategoryProducts = ({ categories, slug }: Props) => {
-    const [currentSlug, setCurrentSlug] = useState(slug);
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading ] = useState(false);
-    const router = useRouter();
+interface BrandsPageProps {
+  brands: Brand[];
+}
 
-    const handleCategoryChange = (newSlug: string) => {
-        if (newSlug === currentSlug) return;
-        setCurrentSlug(newSlug);
-        router.push(`/category/${newSlug}`, {scroll: false});
-    };
+export async function getStaticProps() {
+  const query = `*[_type == "brand" && defined(slug.current)]{
+    _id,
+    title,
+    slug,
+    // ajoutez ici les autres champs nécessaires
+  }`;
 
-    const fetchProducts = async(categorySlug:string) => {
-        setLoading(true);
-        try {
-            const query = `
-                *[_type == 'product' && references(*[_type == "category" && slug.
-                current == $categorySlug]._id)] | order(name asc){
-                ...,"categories": categories[]->title}
-            `;
-            const data = await client.fetch(query, {categorySlug })
-            setProducts(data);
-        } catch (error) {
-            console.error("Error fetching products:", error);
-            setProducts([]);
-        } finally{
-            setLoading(false);
-        }
-    }
-    useEffect(() => {
-        fetchProducts(currentSlug);
-    }, [router])
+  const brands: Brand[] = await client.fetch(query);
 
+  return {
+    props: {
+      brands,
+    },
+    revalidate: 60, // ISR : régénère la page toutes les 60 secondes
+  };
+}
 
-
+const BrandsPage: React.FC<BrandsPageProps> = ({ brands }) => {
   return (
-    <div className="py-5 flex md:flex-row items-start gap-5">
-        <div className="flex flex-col md:min-w-40 border">
-            {categories?.map((item) => (
-                <Button 
-                    onClick={()=>handleCategoryChange(item?.slug?.current as string)}
-                    key={item?._id} 
-                    className={`bg-transparent border-0 p-0 rounded-none
-                    text-darkColor shadow-none hover:bg-shop_light_green hover:text-white
-                    last:border-b-0  transition-colors  capitalize hoverEffect 
-                    ${item?.slug === currentSlug ? " bg-shop_light_green text-white" : "border-darkColor"}`}>
-                    <p className="w-full text-left px-2 font-bold">{item?.title}</p>
-                </Button>
-            ))}
-        </div>
-        <div className="flex-1">
-            {loading ? ( 
-                <div className="flex flex-col items-center
-                justify-center py-10 min-h-80 space-y-4 text-center
-                bg-gray-100 rounded-lg w-full">
-                    <div className="flex items-center space-x-2 
-                        text-blue-600">
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                        <span>Product is Loading...</span>
-                    </div>
-                </div>
-                ) : products?.length > 0 ? (
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5">
-                        {products?.map((product: Product) => (
-                            <AnimatePresence key={product._id}>
-                                <motion.div>
-                                    <ProductCard product={product} />
-                                </motion.div>
-                            </AnimatePresence>
-                        ))}
-                    </div>
-                ) : (
-                    <NoProductAvailable
-                    selectedTab={currentSlug}
-                    className="mt-0 w-full" />
-                )}
-        </div>
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-6">Nos Marques</h1>
+      {brands.length === 0 ? (
+        <p>Aucune marque disponible pour le moment.</p>
+      ) : (
+        <ul className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {brands.map((brand) => (
+            <li key={brand._id} className="border p-4 rounded shadow hover:shadow-lg transition">
+              <h2 className="text-xl font-semibold">{brand.title}</h2>
+              {/* Ajoutez ici d'autres informations sur la marque si besoin */}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default CategoryProducts
+export default BrandsPage;

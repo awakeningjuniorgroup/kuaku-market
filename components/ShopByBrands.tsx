@@ -1,3 +1,5 @@
+// app/components/ShopByBrands.tsx (ou un chemin adapté)
+
 import React from "react";
 import { Title } from "./text";
 import Link from "next/link";
@@ -9,7 +11,7 @@ import { GitCompareArrows, PhoneCallIcon, ShieldCheck, Truck } from "lucide-reac
 const extraData = [
   {
     title: "Delivery",
-    description: " Shipping ",
+    description: "Shipping",
     icon: <Truck size={45} />,
   },
   {
@@ -55,12 +57,13 @@ const ShopByBrands = async () => {
           >
             {brand?.image && (
               <Image
-                src={urlFor(brand?.image).url()}
-                alt={"Brand image"}
+                src={urlFor(brand.image).url()}
+                alt={brand.title || "Brand image"}
                 width={250}
                 height={250}
                 className="w-32 h-20 object-contain"
                 loading="lazy"
+                priority={false}
               />
             )}
           </Link>
@@ -77,12 +80,11 @@ const ShopByBrands = async () => {
                 hover:bg-shop_light_green rounded-md p-3 transition-colors duration-300"
           >
             <span className="inline-flex scale-100 group-hover:scale-90 hoverEffect">
-              {item?.icon}
+              {item.icon}
             </span>
-            <div />
-            <div className="text-sm">
-              <p className="font-bold text-darkColor/80 capitalize">{item?.title}</p>
-              <p className="text-lightColor">{item?.description}</p>
+            <div>
+              <p className="font-bold text-darkColor/80 capitalize">{item.title}</p>
+              <p className="text-lightColor">{item.description}</p>
             </div>
           </div>
         ))}
