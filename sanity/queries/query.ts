@@ -3,7 +3,7 @@ import { defineQuery } from "next-sanity";
 const BRANDS_QUERY = defineQuery(`*[_type=='brand']  | order(name asc) `);
 
 const LATEST_BLOG_QUERY = defineQuery(
-    `*[_type == 'blog' && isLastest == false] |order(name asc) {
+    `*[_type == 'blog'][0...4] |order(name asc) {
     ...,
     blogcategories[]->{
         title

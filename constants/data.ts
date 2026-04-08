@@ -14,7 +14,7 @@ export const quickLinksData = [
 export const categoriesData = [
      { title: "Body", href: "body"},
      { title: "Face", href: "face"},
-     { title: "Hairs", href: "hairs"},
+     { title: "Hairs", href: "hair"},
      { title: "Children", href: "children"},
      { title: "Sun protection", href: "sun-protection"},
 ];
