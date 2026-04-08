@@ -12,10 +12,10 @@ export const quickLinksData = [
      
 ];
 export const categoriesData = [
-     { title: "Body", href: "corps"},
+     { title: "Body", href: "body"},
      { title: "Face", href: "face"},
      { title: "Hairs", href: "hairs"},
-     { title: "Babies", href: "babies"},
+     { title: "Children", href: "children"},
      { title: "Sun protection", href: "sun protection"},
 ];
 export const productType = [
