@@ -27,7 +27,7 @@ export async function getStaticProps() {
     props: {
       brands,
     },
-    revalidate: 60, // ISR : régénère la page toutes les 60 secondes
+    revalidate: 1, // ISR : régénère la page toutes les 60 secondes
   };
 }
 
