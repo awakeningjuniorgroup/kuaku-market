@@ -16,7 +16,7 @@ export const categoriesData = [
      { title: "Face", href: "face"},
      { title: "Hairs", href: "hairs"},
      { title: "Children", href: "children"},
-     { title: "Sun protection", href: "sun protection"},
+     { title: "Sun protection", href: "sun-protection"},
 ];
 export const productType = [
 
