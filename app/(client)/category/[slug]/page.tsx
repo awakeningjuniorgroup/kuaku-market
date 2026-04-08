@@ -12,10 +12,16 @@ interface PageProps {
 
 export async function generateStaticParams() {
   const categories: Category[] = await client.fetch(`*[_type == "category"]{slug}`);
-  return categories.map((cat) => ({
-    slug: cat?.slug?.current,
-  }));
+  return categories
+  
+    .filter(cat => cat.slug?.current)
+    .map(cat => ({
+      slug: cat.slug!.current,
+    }));
+
+   
 }
+
 
 const CategoryPage = async ({ params }: PageProps) => {
   const slug = params.slug;
@@ -31,6 +37,7 @@ const CategoryPage = async ({ params }: PageProps) => {
       "categories": categories[]->title
     }
   `;
+   
 
   const initialProducts: Product[] = await client.fetch(productsQuery, { slug });
 
