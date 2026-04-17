@@ -1,3 +1,5 @@
+
+
 import React from "react";
 import Container from "./Container";
 import FooterTop from "./FooterTop";
@@ -18,8 +20,9 @@ const Footer = () => {
           <div className="space-y-4">
             <Logo />
             <SubText>
-              Discover curated furniture collections at Shopcartyt, blending
-              style and comfort to elevate your living spaces.
+              
+              Decouvrir nos produits dans notre boutique pour 
+              ameliorer votre bien être et votre coprs 
             </SubText>
             <SocialMedia
               className="text-darkColor/60"
@@ -59,7 +62,7 @@ const Footer = () => {
           <div className="space-y-4">
             <SubTitle>Newsletter</SubTitle>
             <SubText>
-              Subscribe to our newsletter to receive updates and exclusive
+              Souscrire a notre newsletter pour recoivoir tout nos nouveautés et offres.
               offers
             </SubText>
             <form className="space-y-3">
@@ -71,7 +74,7 @@ const Footer = () => {
         <div className="py-6 border-t text-center text-sm text-gray-600">
           <div>
             © {new Date().getFullYear()}. All
-            rights reserved by Kuaku market . Created by Awakening Group
+            Tout les droits sont reservés par Kuaku market . Developpé par Awakening Group
           </div>
         </div>
       </Container>

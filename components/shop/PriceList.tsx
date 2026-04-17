@@ -4,11 +4,11 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 
 const priceArray = [
-  { title: "Under 5000 FCFA", value: "0-5000" },
-  { title: "5000 FCFA to 10000 FCFA", value: "5000-10000" },
-  { title: "10000 FCFA to 20000 FCFA", value: "10000-20000" },
-  { title: "20000 to 50000", value: "20000-50000" },
-  { title: "Over 50000 FCFA", value: "50000-100000" },
+  { title: "moins de 5000 FCFA", value: "0-5000" },
+  { title: "5000 FCFA jusqu'à 10000 FCFA", value: "5000-10000" },
+  { title: "10000 FCFA jusqu'à20000 FCFA", value: "10000-20000" },
+  { title: "20000 jusqu'à 50000", value: "20000-50000" },
+  { title: "Plus de 50000 FCFA", value: "50000-100000" },
 ];
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
 const PriceList = ({ selectedPrice, setSelectedPrice }: Props) => {
   return (
     <div className="w-full bg-white p-5">
-      <Title className="text-xs md:text-xs font-black">Price</Title>
+      <Title className="text-xs md:text-xs font-black">Prix</Title>
       <RadioGroup
         value={selectedPrice || ""}
         onValueChange={(value) => setSelectedPrice(value)}
@@ -42,7 +42,7 @@ const PriceList = ({ selectedPrice, setSelectedPrice }: Props) => {
           onClick={() => setSelectedPrice(null)}
           className="text-sm font-medium mt-2 underline underline-offset-2 decoration-1"
         >
-          Reset selection
+          Formater la selection
         </button>
       )}
     </div>

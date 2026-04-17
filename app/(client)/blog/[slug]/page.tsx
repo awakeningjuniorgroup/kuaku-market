@@ -64,7 +64,7 @@ const SingleBlogPage = async ({
                 <span className="absolute left-0 -bottom-1.5 bg-lightColor/30 inline-block w-full h-[2px] group-hover:bg-shop_dark_green hoverEffect" />
               </p>
               <p className="flex items-center gap-1 border p-2 rounded-2xl hover:text-shop_light_green cursor-pointer">
-                <CommentIcon fontSize={35}   /> add comment
+                <CommentIcon fontSize={35}   /> 
               </p>
               <p>
                 <Heart size={35} className="hover:text-shop_light_green cursor-pointer" />
@@ -184,7 +184,7 @@ const SingleBlogPage = async ({
                     <Link href="/blog" className="flex items-center gap-1">
                       <ChevronLeftIcon className="size-5" />
                       <span className="text-sm font-semibold">
-                        Back to blog
+                        Retour a la page de  blog
                       </span>
                     </Link>
                   </div>
@@ -235,7 +235,7 @@ const BlogLeft = async ({ slug }: { slug: string }) => {
         </div>
       </div>
       <div className="border border-lightColor p-5 rounded-md mt-10 bg-white">
-        <Title className="text-base">Latest Blogs</Title>
+        <Title className="text-base">Dernier  Blog</Title>
         <div className="space-y-4 mt-4">
           {blogs?.map((blog: Blog, index: number) => (
             <Link

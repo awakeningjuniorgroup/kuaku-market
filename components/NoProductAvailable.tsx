@@ -23,7 +23,7 @@ export const NoProductAvailable = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-2xl font-bold text-gray-800">No Product Available</h2>
+        <h2 className="text-2xl font-bold text-gray-800">Aucun produit disponible</h2>
       </motion.div>
 
       <motion.p
@@ -32,9 +32,9 @@ export const NoProductAvailable = ({
         transition={{ delay: 0.2, duration: 0.5 }}
         className="text-gray-600 text-center max-w-md"
       >
-        We&apos;re sorry, but there are no products matching{" "}
+        Nous sommes desolé, mais aucun produit compatible dans la categorie{" "}
         <span className="text-base font-semibold text-darkColor">{selectedTab}</span>{" "}
-        criteria at the moment.
+        avec  critaire pour le moment.
       </motion.p>
 
       <motion.div
@@ -43,7 +43,7 @@ export const NoProductAvailable = ({
         className="flex items-center space-x-2 text-shop_dark_green"
       >
         <Loader2 className="w-5 h-5 animate-spin" />
-        <span>We&apos;re restocking shortly</span>
+        <span>Nous restockons progressivement</span>
       </motion.div>
 
       <motion.p
@@ -52,7 +52,8 @@ export const NoProductAvailable = ({
         transition={{ delay: 0.4, duration: 0.5 }}
         className="text-gray-500 text-sm text-center max-w-sm"
       >
-        Please check back later or explore our other product categories.
+       
+        s'il vous plait verifier plus tard ou visiter nos autres produits.
       </motion.p>
     </div>
   );

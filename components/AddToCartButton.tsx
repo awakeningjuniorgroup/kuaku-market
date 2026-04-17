@@ -21,15 +21,15 @@ const AddToCartButton = ({ product, className }: Props) => {
   const router = useRouter();
 
   const itemCount = getItemCount(product?._id);
-  const isOutOfStock = product?.stock === 0;
-  const stock = typeof product?.stock === "number" ? product?.stock : 0;
+  const stock = typeof product?.stock === "number" ? product.stock : 0;
+  const isOutOfStock = stock === 0;
 
   const handleAddToCart = async () => {
     if (itemCount < stock) {
       try {
-        await addItem(product); // attendre que l'ajout réussisse
-        toast.success("... added Successfully!");
-        router.push("/cart"); // redirection après succès
+        await addItem(product); // Ajout asynchrone dans le store
+        toast.success("Product added successfully!");
+        router.push("/cart"); // Redirection vers le panier
       } catch (error) {
         toast.error("Failed to add item to cart.");
         console.error("Add to cart error:", error);
@@ -37,20 +37,19 @@ const AddToCartButton = ({ product, className }: Props) => {
     } else {
       toast.error("Cannot add more than available stock");
     }
-    console.log("Product stock for", product?.name, ":", product?.stock);
   };
 
   return (
-    <div className=" h-10 flex items-center">
-      {itemCount ? (
+    <div className="h-10 flex items-center">
+      {itemCount > 0 ? (
         <div className="w-full text-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-darkColor/60">Quantity :</span>
+            <span className="text-xs text-darkColor/60">Quantity:</span>
             <QuantityButtons product={product} />
           </div>
           <div className="flex items-center justify-between border-t pt-1">
             <span className="text-xs font-semibold">Subtotal</span>
-            <PriceFormatter amount={product?.price ? product?.price * itemCount : 0} />
+            <PriceFormatter amount={product?.price ? product.price * itemCount : 0} />
           </div>
         </div>
       ) : (
@@ -58,11 +57,11 @@ const AddToCartButton = ({ product, className }: Props) => {
           onClick={handleAddToCart}
           disabled={isOutOfStock}
           className={cn(
-            "w-full bg-shop_dark_green/80 text-shop_light_bg shadow-none border border-shop_dark_green/80 font-semibold tracking-wide hover:text-white hover:bg-shop_dark_green/90 hover:border-shop_dark_green/90 disabled:bg-gray-300 disabled:text-gray-500 disabled:border-gray-300 hoverEffect",
+            "w-full  p-3 bg-shop_dark_green/80 text-shop_light_bg shadow-none border border-shop_dark_green/80 font-semibold tracking-wide hover:text-white hover:bg-shop_dark_green/90 hover:border-shop_dark_green/90 disabled:bg-gray-300 disabled:text-gray-500 disabled:border-gray-300 hoverEffect",
             className
           )}
         >
-          <ShoppingBag /> {isOutOfStock ? "Out of Stock" : "Add to Cart"}
+          <ShoppingBag /> {isOutOfStock ? "Stock ecoulé" : "Ajouter au panier"}
         </Button>
       )}
     </div>

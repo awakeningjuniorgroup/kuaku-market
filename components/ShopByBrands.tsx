@@ -10,23 +10,23 @@ import { GitCompareArrows, PhoneCallIcon, ShieldCheck, Truck } from "lucide-reac
 
 const extraData = [
   {
-    title: "Delivery",
-    description: "Shipping",
+    title: "livraison",
+    description: "Nous livrons dans de nombreuses villes",
     icon: <Truck size={45} />,
   },
   {
-    title: "Free Return",
-    description: "Return products",
+    title: "Retour gratuit",
+    description: "Nous retournons les produits",
     icon: <GitCompareArrows size={45} />,
   },
   {
-    title: "Customer Support",
-    description: "Friendly 24/7 customer support",
+    title: "Service client",
+    description: "Un service client ouvret 24h/24 et 7j/7",
     icon: <PhoneCallIcon size={45} />,
   },
   {
-    title: "Money Back guarantee",
-    description: "Quality checked by our team",
+    title: "Retour d'argent garenti",
+    description: "transactions securisées par nos équipes",
     icon: <ShieldCheck size={45} />,
   },
 ];
@@ -37,12 +37,12 @@ const ShopByBrands = async () => {
   return (
     <div className="mb-10 lg:pb-20 bg-shop_light_bg p-5 lg:p-7 rounded-md">
       <div className="flex items-center gap-5 justify-between mb-10">
-        <Title>Shop by Brands</Title>
+        <Title>Nos marques</Title>
         <Link
           href="/shop"
           className="text-sm font-semibold tracking-wide underline hover:text-shop_btn_dark_green hoverEffect"
         >
-          View All
+          Tout voir
         </Link>
       </div>
       <div className="grid grid-cols-4 md:grid-cols-4 lg:grid-cols-8 gap-5">

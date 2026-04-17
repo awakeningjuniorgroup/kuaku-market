@@ -15,17 +15,17 @@ const NoAccessToCart = ({
       <Card className="w-full max-w-md p-5">
         <CardHeader className="flex items-center flex-col gap-1">
             <Logo />
-            <CardTitle className="text-2xl font-bold text-center">Welcome Back!</CardTitle>
+            <CardTitle className="text-2xl font-bold text-center">Bon retour!</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
             <p className="text-center font-semibold text-darkColor/80">{details}</p>
             <Link href="/">
-              <Button className="w-full" size="lg">Browse Products</Button>
+              <Button className="w-full" size="lg">chercher un produit</Button>
             </Link>
         </CardContent>
         <CardFooter className="flex flex-col space-x-2">
             <div className="text-sm text-muted-foreground text-center">
-                Continue shopping to see your saved items.
+                Continué de fqire des achats pour voir tout nos produits.
             </div>
         </CardFooter>
       </Card>

@@ -12,7 +12,7 @@ const LatestBlog = async () => {
 
   return (
     <div className="mb-10 lg:mb-20">
-      <Title>Latest Blog</Title>
+      <Title>Dernier blog</Title>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-5">
         {blogs?.map((blog) => (
           <Link

@@ -1,28 +1,28 @@
 export const headerData = [
-     { title: "Home", href: "/" },
-    { title: "Shop", href: "/shop" },
+     { title: "Accueil", href: "/" },
+    { title: "Boutique", href: "/shop" },
     { title: "Blog", href: "/blog" },
-    { title: "HotDeal", href: "/deal" },
+    { title: "Bonne affaire", href: "/deal" },
     
 ];
 export const quickLinksData = [
-     { title: "Terms & Conditions", href: "/term"},
-     { title: "Privacy & Policy", href: "/privacy"},
+     { title: "Termes & conditions d'utilisation", href: "/term"},
+     { title: "confidentialite et politique", href: "/privacy"},
      { title: "FAQs", href: "/faqs"}
      
 ];
 export const categoriesData = [
-     { title: "Body", href: "body"},
+     { title: "Corps", href: "body"},
      { title: "Face", href: "face"},
-     { title: "Hair", href: "hair"},
-     { title: "Children", href: "children"},
-     { title: "Sun protection", href: "sun-protection"},
+     { title: "Cheveux", href: "hair"},
+     { title: "Enfants", href: "children"},
+     { title: "Protection solaire", href: "sun-protection"},
 ];
 export const productType = [
 
-     { title: "Adults", value: "adults" },
-     { title: "Children", value: "children" },
-     { title: "All genders", value: "all-genders" }
+     { title: "Adultes", value: "adults" },
+     { title: "Enfants", value: "children" },
+     { title: "Tout genres", value: "all-genders" }
     
     
 ]

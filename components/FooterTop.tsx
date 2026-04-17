@@ -9,7 +9,7 @@ interface ContactItemData {
 
 const data: ContactItemData[] = [
   {
-    title: "Visit Us",
+    title: "Nous visitez",
     subtitle: "enter the location",
     icon: (
       <MapPin className="h-6 w-6 text-gray-600 group-hover:text-primary
@@ -17,7 +17,7 @@ const data: ContactItemData[] = [
     ),
   },
    {
-    title: "Call Us",
+    title: "Contacts",
     subtitle: "677867169",
     icon: (
       <Phone className="h-6 w-6 text-gray-600 group-hover:text-primary
@@ -25,7 +25,7 @@ const data: ContactItemData[] = [
     ),
   },
    {
-    title: "Working Hours",
+    title: "Heure de travail",
     subtitle: "24h/7",
     icon: (
       <Clock className="h-6 w-6 text-gray-600 group-hover:text-primary
@@ -33,8 +33,8 @@ const data: ContactItemData[] = [
     ),
   },
    {
-    title: "Email Us",
-    subtitle: "kuakumarket@gmail.com",
+    title: "Email",
+    subtitle: "koudjougislaine@kuakumarket.com",
     icon: (
       <Mail className="h-6 w-6 text-gray-600 group-hover:text-primary
       transition-color" />

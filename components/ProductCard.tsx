@@ -64,15 +64,15 @@ const ProductCard = ({ product }: { product: Product }) => {
               />
             ))}
           </div>
-          <p className="text-lightText text-xs tracking-wide">5 Reviews</p>
+          <p className="text-lightText text-xs tracking-wide">5 Etoiles</p>
         </div>
 
         <div className="flex items-center gap-2.5">
-          <p className="font-medium">In Stock</p>
+          <p className="font-medium">En Stock</p>
           <p
             className={`${product?.stock === 0 ? "text-red-600" : "text-shop_dark_green/80 font-semibold"}`}
           >
-            {(product?.stock as number) > 0 ? product?.stock : "unavailable"}
+            {(product?.stock as number) > 0 ? product?.stock : "Non disponible"}
           </p>
         </div>
 

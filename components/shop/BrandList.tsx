@@ -16,14 +16,14 @@ const BrandList = ({ brands, selectedBrand, setSelectedBrand }: Props) => {
 
   return (
     <div className="w-full bg-white p-5">
-      <Title className="text-xs md:text-xs lg:text-xl font-black">Brands</Title>
+      <Title className="text-xs md:text-xs lg:text-xl font-black">Marques</Title>
       <RadioGroup
         aria-labelledby="brands-label"
         value={selectedBrand || ""}
         onValueChange={(value) => setSelectedBrand(value)}
         className="mt-2 space-y-1"
       >
-        <span id="brands-label" className="sr-only">Select a brand</span>
+        <span id="brands-label" className="sr-only">Choisir une marque</span>
         {filteredBrands?.map((brand) => (
           <div key={brand._id} className="flex items-center space-x-2 hover:cursor-pointer">
             <RadioGroupItem
@@ -44,7 +44,7 @@ const BrandList = ({ brands, selectedBrand, setSelectedBrand }: Props) => {
             onClick={() => setSelectedBrand(null)}
             className="text-sm text-left font-medium mt-2 underline underline-offset-2 decoration-1 hover:text-shop_dark_green hoverEffect"
           >
-            Reset selection
+            formater la selection
           </button>
         )}
       </RadioGroup>

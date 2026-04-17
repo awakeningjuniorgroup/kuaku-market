@@ -94,7 +94,7 @@ const ShopContent = ({
           <div className="sticky top-0 z-10 mb-5">
             <div className="flex items-center justify-between gap-3">
               <Title className="text-lg uppercase tracking-wide">
-                Get the products as you needs
+                Obtenir les produits comme vous aimez
               </Title>
 
               <div className="flex items-center gap-2">

@@ -15,14 +15,14 @@ const CategoryList = ({ categories, selectedCategory, setSelectedCategory }: Pro
 
   return (
     <div className="w-full bg-white p-5">
-      <Title className="text-xs md:text-xs lg:text-xl font-black">Product categories</Title>
+      <Title className="text-xs md:text-xs lg:text-xl font-black">Produit par categorie</Title>
       <RadioGroup
         aria-labelledby="categories-label"
         value={selectedCategory || ""}
         onValueChange={(value) => setSelectedCategory(value)}
         className="mt-2 space-y-1"
       >
-        <span id="categories-label" className="sr-only">Select a product category</span>
+        <span id="categories-label" className="sr-only">Selection un categorie de produit</span>
         {filteredCategories?.map((category) => (
           <div key={category._id} className="flex items-center space-x-2 hover:cursor-pointer">
             <RadioGroupItem
@@ -44,7 +44,7 @@ const CategoryList = ({ categories, selectedCategory, setSelectedCategory }: Pro
           onClick={() => setSelectedCategory(null)}
           className="text-sm font-medium mt-2 underline underline-offset-2"
         >
-          Reset selection
+          Formater la selection
         </button>
       )}
     </div>
