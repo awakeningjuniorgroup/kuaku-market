@@ -7,7 +7,6 @@ import Container from "@/components/Container";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { QrCode, Phone, Copy, Check, Clock, AlertCircle } from "lucide-react";
-import QRCode from "qrcode.react";
 import { client } from "@/sanity/lib/client";
 import toast from "react-hot-toast";
 

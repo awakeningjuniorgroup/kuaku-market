@@ -1,7 +1,7 @@
 // app/api/invoice/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { client } from "@/sanity/lib/client";
-import { generateInvoiceHTML, InvoiceData } from "@/utils/invoiceGenerator";
+import { InvoiceData, generateInvoiceWithQRHTML } from "../../../utils/invoiceWithQRGenerator";
 
 export async function GET(request: NextRequest) {
   try {
@@ -75,7 +75,7 @@ export async function GET(request: NextRequest) {
     };
 
     // Générer le HTML
-    const html = generateInvoiceHTML(invoiceData);
+    const html = generateInvoiceWithQRHTML(invoiceData);
 
     // Retourner le HTML
     return new NextResponse(html, {

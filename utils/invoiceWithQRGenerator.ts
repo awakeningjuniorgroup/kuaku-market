@@ -1,6 +1,6 @@
 // utils/invoiceWithQRGenerator.ts
-import { Address } from "@/sanity/types";
-import { QrCode } from "lucide-react";
+import { Address } from "@/sanity/schemaTypes/addressType";
+import QRCode from 'qrcode';
 
 export interface InvoiceData {
   invoiceNumber: string;
@@ -130,6 +130,10 @@ export async function generateInvoiceWithQRHTML(data: InvoiceData): Promise<stri
       border-radius: 4px;
       margin-top: 8px;
       word-break: break-all;
+    }
+    .qr-card img {
+      display: block;
+      margin: 10px auto;
     }
     
     .customer-info {
@@ -271,19 +275,19 @@ export async function generateInvoiceWithQRHTML(data: InvoiceData): Promise<stri
       <div class="qr-section">
         <div class="qr-card">
           <h4>📱 QR Code de suivi</h4>
-          <img src="${qrCodeTracking}" alt="QR Code Suivi" style="width: 120px; height: 120px; margin: 10px auto;">
+          <img src="${qrCodeTracking}" alt="QR Code Suivi" style="width: 120px; height: 120px;">
           <p class="code">Code: ${data.pickupCode}</p>
           <p style="font-size: 11px; color: #666;">Scannez pour suivre votre commande</p>
         </div>
         <div class="qr-card">
           <h4>🏪 QR Code de retrait</h4>
-          <img src="${qrCodePickup}" alt="QR Code Retrait" style="width: 120px; height: 120px; margin: 10px auto;">
+          <img src="${qrCodePickup}" alt="QR Code Retrait" style="width: 120px; height: 120px;">
           <p class="code">Code: ${data.pickupCode}</p>
           <p style="font-size: 11px; color: #666;">Présentez au point de retrait</p>
         </div>
         <div class="qr-card">
           <h4>📦 QR Code commande</h4>
-          <img src="${qrCodeData}" alt="QR Code Commande" style="width: 120px; height: 120px; margin: 10px auto;">
+          <img src="${qrCodeData}" alt="QR Code Commande" style="width: 120px; height: 120px;">
           <p class="code">ID: ${data.orderNumber.substring(0, 8)}</p>
           <p style="font-size: 11px; color: #666;">Identification de la commande</p>
         </div>

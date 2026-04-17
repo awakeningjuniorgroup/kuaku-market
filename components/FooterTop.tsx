@@ -18,7 +18,7 @@ const data: ContactItemData[] = [
   },
    {
     title: "Contacts",
-    subtitle: "677867169",
+    subtitle: "(+237) 677867169",
     icon: (
       <Phone className="h-6 w-6 text-gray-600 group-hover:text-primary
       transition-color" />

@@ -1,7 +1,8 @@
 // app/api/order/create/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { client } from "@/sanity/lib/client";
-import { generateOrderQRCode, generatePickupQRCode } from "@/utils/qrGenerator";
+import { generateInvoiceWithQRHTML } from "../../../utils/invoiceWithQRGenerator";
+import { generateOrderQRCode, generatePickupQRCode } from "../../../utils/qrCodeGenerator";
 import crypto from "crypto";
 
 export async function POST(request: NextRequest) {
