@@ -1,10 +1,9 @@
-// app/success/page.tsx
 "use client";
 
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, FileText, Download, Printer, QrCode } from "lucide-react";
+import { CheckCircle, Printer, QrCode } from "lucide-react";
 import Container from "@/components/Container";
 import { useState, useEffect } from "react";
 import { client } from "@/sanity/lib/client";
@@ -99,41 +98,18 @@ export default function SuccessPage() {
     }
   };
 
-  // Ouvrir la facture dans un nouvel onglet
-  const viewInvoice = () => {
-    if (invoiceHtml) {
-      const win = window.open();
-      win?.document.write(invoiceHtml);
-      win?.document.close();
-    }
-  };
-
-  // Télécharger la facture en HTML
-  const downloadInvoiceHTML = () => {
-    if (invoiceHtml) {
-      const blob = new Blob([invoiceHtml], { type: "text/html" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `facture-${orderNumber}.html`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      toast.success("Facture HTML téléchargée !");
-    }
-  };
-
   // Imprimer / Sauvegarder en PDF
   const printInvoice = () => {
     if (invoiceHtml) {
       const printWindow = window.open('', '_blank');
-      printWindow?.document.write(invoiceHtml);
-      printWindow?.document.close();
-      printWindow?.onload = () => {
-        printWindow?.print();
-        toast.success("Utilisez 'Enregistrer au format PDF' dans la boîte de dialogue d'impression");
-      };
+      if (printWindow) {
+        printWindow.document.write(invoiceHtml);
+        printWindow.document.close();
+        printWindow.onload = () => {
+          printWindow.print();
+          toast.success("Utilisez 'Enregistrer au format PDF' dans la boîte de dialogue d'impression");
+        };
+      }
     }
   };
 
@@ -142,9 +118,18 @@ export default function SuccessPage() {
     setDownloading(true);
     if (invoiceHtml) {
       const printWindow = window.open('', '_blank');
-      printWindow?.document.write(invoiceHtml);
-      printWindow?.document.close();
-      
+      if (printWindow) {
+        printWindow.document.write(invoiceHtml);
+        printWindow.document.close();
+        printWindow.onload = () => {
+          printWindow.print();
+          setDownloading(false);
+          toast.success("Utilisez 'Enregistrer au format PDF' dans la boîte de dialogue d'impression");
+        };
+      } else {
+        setDownloading(false);
+        toast.error("Erreur lors de la génération du PDF");
+      }
     } else {
       setDownloading(false);
       toast.error("Erreur lors de la génération du PDF");
@@ -195,24 +180,6 @@ export default function SuccessPage() {
           
           {/* Boutons facture */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-            <Button 
-              onClick={viewInvoice}
-              variant="outline"
-              className="flex flex-col items-center gap-1 py-3 h-auto"
-            >
-              <FileText className="w-5 h-5" />
-              <span className="text-xs">Aperçu</span>
-            </Button>
-            
-            <Button 
-              onClick={downloadInvoiceHTML}
-              variant="outline"
-              className="flex flex-col items-center gap-1 py-3 h-auto"
-            >
-              <Download className="w-5 h-5" />
-              <span className="text-xs">HTML</span>
-            </Button>
-            
             <Button 
               onClick={printInvoice}
               variant="outline"
