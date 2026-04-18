@@ -74,10 +74,10 @@ const SingleProductPage = async({
                         <TruckIcon size={30} className="text-shop_light_green" />
                         <div className="">
                             <p className="text-base font-semibold text-black">
-                                Free Delivery
+                                 Livraison
                             </p>
                             <p className="text-sm text-gray-500 underline underline-offset-2">
-                                Enter your postal code for delivery Availability
+                                Livraison dans plusieurs villes
                             </p>
                         </div>
                     </div>
@@ -85,11 +85,11 @@ const SingleProductPage = async({
                         <CornerDownLeftIcon size={30} className="text-shop_light_green" />
                         <div className="">
                             <p className="text-base font-semibold text-black">
-                                Return delivery
+                                Retour de livraison
                             </p>
                             <p className="text-sm text-gray-500 underline underline-offset-2">
-                                Free 30 days Delivery Returns.{" "}
-                                <span className="underline underline-offset-2">Details</span>
+                                Retour de livraison en cas d'erreur de commande.{" "}
+                                
                             </p>
                         </div>
                     </div>
