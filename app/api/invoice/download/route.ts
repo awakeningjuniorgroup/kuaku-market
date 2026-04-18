@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import puppeteer from "puppeteer";
 import { client } from "@/sanity/lib/client";
-import { generateInvoiceHTML, InvoiceData } from "@/utils/invoiceGenerator";
+import { generateInvoiceHTML, InvoiceData } from "../../../../utils/invoiceGenerator";
 
 export async function GET(request: NextRequest) {
   try {
