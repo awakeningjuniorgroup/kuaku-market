@@ -1,6 +1,7 @@
 // app/payment/simulate/page.tsx
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -8,7 +9,8 @@ import { CheckCircle, Copy } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export default function SimulatePaymentPage() {
+// Composant principal qui utilise useSearchParams
+function SimulatePaymentContent() {
   const searchParams = useSearchParams();
   const orderNumber = searchParams.get("order");
   const amount = searchParams.get("amount");
@@ -91,5 +93,18 @@ export default function SimulatePaymentPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Composant wrapper avec Suspense
+export default function SimulatePaymentPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+      </div>
+    }>
+      <SimulatePaymentContent />
+    </Suspense>
   );
 }

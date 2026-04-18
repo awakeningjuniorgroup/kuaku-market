@@ -1,8 +1,9 @@
 // app/success/page.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, FileText, RefreshCw } from "lucide-react";
 import Container from "@/components/Container";
@@ -10,7 +11,8 @@ import { InvoiceModal, InvoiceData } from "@/components/InvoiceModal";
 import { client } from "@/sanity/lib/client";
 import toast from "react-hot-toast";
 
-export default function SuccessPage() {
+// Composant qui utilise useSearchParams
+function SuccessContent() {
   const searchParams = useSearchParams();
   const orderNumber = searchParams.get("orderNumber");
   const isSimulation = searchParams.get("sim") === "true";
@@ -82,7 +84,7 @@ export default function SuccessPage() {
           deliveryStatus: order.deliveryStatus || "pending",
         });
       } else {
-        toast.error("Commande non trouvée. Cliquez sur Rafraîchir.");
+        toast.error("Commande non trouvée");
       }
     } catch (error) {
       console.error("Error fetching order:", error);
@@ -146,10 +148,7 @@ export default function SuccessPage() {
           </Button>
 
           {!invoiceData && (
-            <Button 
-              variant="outline" 
-              onClick={fetchOrderData}
-            >
+            <Button variant="outline" onClick={fetchOrderData}>
               <RefreshCw className="w-4 h-4 mr-2" />
               Rafraîchir
             </Button>
@@ -167,5 +166,20 @@ export default function SuccessPage() {
         invoiceData={invoiceData}
       />
     </Container>
+  );
+}
+
+// Composant wrapper avec Suspense
+export default function SuccessPage() {
+  return (
+    <Suspense fallback={
+      <Container>
+        <div className="flex justify-center items-center h-96">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+        </div>
+      </Container>
+    }>
+      <SuccessContent />
+    </Suspense>
   );
 }
