@@ -1,49 +1,38 @@
 // app/api/order/create/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { client } from "@/sanity/lib/client";
-import { generateInvoiceWithQRHTML } from "../../../utils/invoiceWithQRGenerator";
-import { generateOrderQRCode, generatePickupQRCode } from "../../../utils/qrCodeGenerator";
-import crypto from "crypto";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { orderData, paymentData } = body;
 
-    // Générer un code de récupération unique
-    const pickupCode = crypto.randomBytes(4).toString('hex').toUpperCase();
+    console.log("📝 Création commande:", { orderData, paymentData });
+
+    // Générer un code de retrait unique
+    const pickupCode = Math.random().toString(36).substring(2, 10).toUpperCase();
     const trackingNumber = `TRK-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     
-    // Calculer la date de livraison estimée (3-5 jours)
+    // Date de livraison estimée (5 jours)
     const expectedDeliveryDate = new Date();
     expectedDeliveryDate.setDate(expectedDeliveryDate.getDate() + 5);
 
-    // Préparer les données du QR code
-    const qrData = {
-      orderNumber: orderData.orderNumber,
-      trackingNumber: trackingNumber,
-      customerName: orderData.customerName,
-      customerPhone: orderData.customerPhone,
-      pickupCode: pickupCode,
-      deliveryStatus: "pending",
-      createdAt: new Date().toISOString(),
-      expectedDeliveryDate: expectedDeliveryDate.toISOString(),
-    };
-
-    // Générer les QR codes
-    const qrCode = await generateOrderQRCode(qrData);
-    const pickupQRCode = await generatePickupQRCode(orderData.orderNumber, pickupCode);
-
-    // Sauvegarder la commande dans Sanity avec les QR codes
+    // Créer la commande dans Sanity
     const order = {
       _type: "order",
       orderNumber: orderData.orderNumber,
       trackingNumber: trackingNumber,
+      pickupCode: pickupCode,
       customerName: orderData.customerName,
       customerEmail: orderData.customerEmail,
       customerPhone: orderData.customerPhone,
       address: orderData.address,
-      items: orderData.items,
+      items: orderData.items.map((item: any) => ({
+        productId: item.id || item.productId,
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price,
+      })),
       subtotal: orderData.subtotal,
       discount: orderData.discount || 0,
       total: orderData.total,
@@ -51,26 +40,15 @@ export async function POST(request: NextRequest) {
       paymentStatus: "paid",
       transactionId: paymentData.transactionId,
       deliveryStatus: "pending",
-      pickupCode: pickupCode,
-      qrCode: qrCode,
-      pickupQRCode: pickupQRCode,
       createdAt: new Date().toISOString(),
       expectedDeliveryDate: expectedDeliveryDate.toISOString(),
-      statusHistory: [
-        {
-          status: "pending",
-          date: new Date().toISOString(),
-          description: "Commande créée",
-        },
-        {
-          status: "paid",
-          date: new Date().toISOString(),
-          description: "Paiement confirmé",
-        },
-      ],
     };
 
+    console.log("📤 Sauvegarde dans Sanity:", order);
+
     const savedOrder = await client.create(order);
+    
+    console.log("✅ Commande sauvegardée:", savedOrder);
 
     return NextResponse.json({
       success: true,
@@ -78,10 +56,11 @@ export async function POST(request: NextRequest) {
       pickupCode: pickupCode,
       trackingNumber: trackingNumber,
     });
+    
   } catch (error) {
-    console.error("Error creating order:", error);
+    console.error("❌ Erreur création commande:", error);
     return NextResponse.json(
-      { error: "Failed to create order" },
+      { error: "Failed to create order", details: error },
       { status: 500 }
     );
   }

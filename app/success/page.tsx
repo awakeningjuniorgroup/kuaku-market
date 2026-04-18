@@ -1,13 +1,13 @@
+// app/success/page.tsx
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { CheckCircle, Printer, QrCode } from "lucide-react";
-import Container from "@/components/Container";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { CheckCircle, FileText, RefreshCw } from "lucide-react";
+import Container from "@/components/Container";
+import { InvoiceModal, InvoiceData } from "@/components/InvoiceModal";
 import { client } from "@/sanity/lib/client";
-import { generateInvoiceWithQRHTML, InvoiceData } from "@/utils/invoiceWithQRGenerator";
 import toast from "react-hot-toast";
 
 export default function SuccessPage() {
@@ -15,16 +15,11 @@ export default function SuccessPage() {
   const orderNumber = searchParams.get("orderNumber");
   const isSimulation = searchParams.get("sim") === "true";
   const [loading, setLoading] = useState(true);
-  const [invoiceHtml, setInvoiceHtml] = useState<string>("");
-  const [downloading, setDownloading] = useState(false);
+  const [showInvoice, setShowInvoice] = useState(false);
+  const [invoiceData, setInvoiceData] = useState<InvoiceData | null>(null);
 
-  useEffect(() => {
-    if (orderNumber) {
-      fetchAndGenerateInvoice();
-    }
-  }, [orderNumber]);
-
-  const fetchAndGenerateInvoice = async () => {
+  const fetchOrderData = async () => {
+    setLoading(true);
     try {
       const order = await client.fetch(
         `*[_type == "order" && orderNumber == $orderNumber][0]{
@@ -55,14 +50,14 @@ export default function SuccessPage() {
       );
 
       if (order) {
-        const invoiceData: InvoiceData = {
+        setInvoiceData({
           invoiceNumber: `INV-${order.orderNumber.substring(0, 8)}`,
           orderNumber: order.orderNumber,
           trackingNumber: order.trackingNumber || `TRK-${Date.now()}`,
           pickupCode: order.pickupCode || Math.random().toString(36).substring(2, 10).toUpperCase(),
           date: new Date(order.createdAt).toLocaleDateString("fr-FR"),
           dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString("fr-FR"),
-          expectedDeliveryDate: order.expectedDeliveryDate 
+          expectedDeliveryDate: order.expectedDeliveryDate
             ? new Date(order.expectedDeliveryDate).toLocaleDateString("fr-FR")
             : new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toLocaleDateString("fr-FR"),
           customer: {
@@ -71,13 +66,13 @@ export default function SuccessPage() {
             phone: order.customerPhone,
             address: order.address,
           },
-          items: order.items.map((item: any) => ({
+          items: order.items?.map((item: any) => ({
             id: item.productId,
             name: item.name,
             quantity: item.quantity,
             unitPrice: item.price,
             total: item.price * item.quantity,
-          })),
+          })) || [],
           subtotal: order.subtotal || order.total,
           discount: order.discount || 0,
           total: order.total,
@@ -85,56 +80,23 @@ export default function SuccessPage() {
           paymentStatus: order.paymentStatus,
           transactionId: order.transactionId,
           deliveryStatus: order.deliveryStatus || "pending",
-        };
-
-        const html = await generateInvoiceWithQRHTML(invoiceData);
-        setInvoiceHtml(html);
+        });
+      } else {
+        toast.error("Commande non trouvée. Cliquez sur Rafraîchir.");
       }
     } catch (error) {
       console.error("Error fetching order:", error);
-      toast.error("Erreur lors de la génération de la facture");
+      toast.error("Erreur lors du chargement");
     } finally {
       setLoading(false);
     }
   };
 
-  // Imprimer / Sauvegarder en PDF
-  const printInvoice = () => {
-    if (invoiceHtml) {
-      const printWindow = window.open('', '_blank');
-      if (printWindow) {
-        printWindow.document.write(invoiceHtml);
-        printWindow.document.close();
-        printWindow.onload = () => {
-          printWindow.print();
-          toast.success("Utilisez 'Enregistrer au format PDF' dans la boîte de dialogue d'impression");
-        };
-      }
+  useEffect(() => {
+    if (orderNumber) {
+      fetchOrderData();
     }
-  };
-
-  // Télécharger en PDF (via l'impression)
-  const downloadInvoicePDF = () => {
-    setDownloading(true);
-    if (invoiceHtml) {
-      const printWindow = window.open('', '_blank');
-      if (printWindow) {
-        printWindow.document.write(invoiceHtml);
-        printWindow.document.close();
-        printWindow.onload = () => {
-          printWindow.print();
-          setDownloading(false);
-          toast.success("Utilisez 'Enregistrer au format PDF' dans la boîte de dialogue d'impression");
-        };
-      } else {
-        setDownloading(false);
-        toast.error("Erreur lors de la génération du PDF");
-      }
-    } else {
-      setDownloading(false);
-      toast.error("Erreur lors de la génération du PDF");
-    }
-  };
+  }, [orderNumber]);
 
   if (loading) {
     return (
@@ -148,71 +110,62 @@ export default function SuccessPage() {
 
   return (
     <Container>
-      <div className="max-w-2xl mx-auto py-12">
-        <div className="text-center">
-          <div className="mb-6">
-            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-              <CheckCircle className="w-10 h-10 text-green-600" />
-            </div>
-          </div>
-          
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
-            Commande confirmée ! 🎉
-          </h1>
-          
-          <p className="text-gray-600 mb-2">
-            Votre commande a été enregistrée avec succès.
-          </p>
-          
-          {orderNumber && (
-            <p className="text-sm text-gray-500 mb-6">
-              Numéro de commande : <span className="font-mono">{orderNumber}</span>
-            </p>
-          )}
-          
-          {isSimulation && (
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
-              <p className="text-sm text-yellow-800">
-                ⚠️ Mode simulation - Aucun paiement réel n'a été effectué.
-              </p>
-            </div>
-          )}
-          
-          {/* Boutons facture */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-            <Button 
-              onClick={printInvoice}
-              variant="outline"
-              className="flex flex-col items-center gap-1 py-3 h-auto"
-            >
-              <Printer className="w-5 h-5" />
-              <span className="text-xs">Imprimer</span>
-            </Button>
-            
-            <Button 
-              onClick={downloadInvoicePDF}
-              disabled={downloading}
-              className="flex flex-col items-center gap-1 py-3 h-auto bg-blue-600 hover:bg-blue-700"
-            >
-              <QrCode className="w-5 h-5" />
-              <span className="text-xs">{downloading ? "Chargement..." : "PDF"}</span>
-            </Button>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href={`/track-order/${orderNumber}`}>
-              <Button variant="outline">
-                📦 Suivre ma commande
-              </Button>
-            </Link>
-            <Link href="/">
-              <Button variant="ghost">
-                🏠 Continuer mes achats
-              </Button>
-            </Link>
-          </div>
+      <div className="max-w-2xl mx-auto py-12 text-center">
+        <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <CheckCircle className="w-10 h-10 text-green-600" />
         </div>
+
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          Commande confirmée ! 🎉
+        </h1>
+
+        <p className="text-gray-600 mb-2">
+          Votre commande a été enregistrée avec succès.
+        </p>
+
+        {orderNumber && (
+          <p className="text-sm text-gray-500 mb-6">
+            N° commande : <span className="font-mono">{orderNumber}</span>
+          </p>
+        )}
+
+        {isSimulation && (
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+            <p className="text-sm text-yellow-800">⚠️ Mode simulation - Aucun paiement réel n'a été effectué.</p>
+          </div>
+        )}
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+          <Button
+            onClick={() => setShowInvoice(true)}
+            className="bg-blue-600 hover:bg-blue-700"
+            disabled={!invoiceData}
+          >
+            <FileText className="w-4 h-4 mr-2" />
+            Voir / Imprimer ma facture
+          </Button>
+
+          {!invoiceData && (
+            <Button 
+              variant="outline" 
+              onClick={fetchOrderData}
+            >
+              <RefreshCw className="w-4 h-4 mr-2" />
+              Rafraîchir
+            </Button>
+          )}
+        </div>
+
+        <Button variant="outline" onClick={() => (window.location.href = "/")}>
+          🏠 Continuer mes achats
+        </Button>
       </div>
+
+      <InvoiceModal
+        isOpen={showInvoice}
+        onClose={() => setShowInvoice(false)}
+        invoiceData={invoiceData}
+      />
     </Container>
   );
 }

@@ -1,272 +1,93 @@
+// app/payment/simulate/page.tsx
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { CheckCircle, Copy } from "lucide-react";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function SimulatePaymentPage() {
   const searchParams = useSearchParams();
-  const router = useRouter();
+  const orderNumber = searchParams.get("order");
+  const amount = searchParams.get("amount");
+  const method = searchParams.get("method");
+  
+  const [copied, setCopied] = useState(false);
 
-  const orderNumber = searchParams.get("order") || "unknown";
-  const amountParam = searchParams.get("amount") || "0";
-  const method = searchParams.get("method") || "mtn";
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    toast.success("Code USSD copié !");
+    setTimeout(() => setCopied(false), 2000);
+  };
 
-  const amount = Number(amountParam);
-
-  const confirmationCode = Math.floor(Math.random() * 1000000);
   const merchantCode = Math.floor(Math.random() * 1000000);
-
-  const ussdCode =
-    method === "mtn"
-      ? `*126*${merchantCode}*${amount}#`
-      : `#144*${merchantCode}*${amount}#`;
-
-  const [countdown, setCountdown] = useState(5);
-
-  useEffect(() => {
-    if (countdown <= 0) {
-      router.push(`/success?orderNumber=${orderNumber}&sim=true`);
-      return;
-    }
-    const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
-    return () => clearTimeout(timer);
-  }, [countdown, orderNumber, router]);
+  const ussdCode = method === "mtn"
+    ? `*126*${merchantCode}*${amount}#`
+    : `#144*${merchantCode}*${amount}#`;
 
   return (
-    <div
-      style={{
-        fontFamily:
-          "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif",
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 20,
-      }}
-    >
-      <div
-        style={{
-          background: "white",
-          borderRadius: 24,
-          padding: 32,
-          maxWidth: 500,
-          width: "100%",
-          textAlign: "center",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
-          animation: "fadeIn 0.5s ease",
-        }}
-      >
-        <style>{`
-          @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          @keyframes scale {
-            0% { transform: scale(0); }
-            80% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-          }
-          .icon {
-            width: 80px;
-            height: 80px;
-            background: #4caf50;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            animation: scale 0.5s ease;
-          }
-          .btn {
-            background: #4caf50;
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 40px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.2s;
-            margin-top: 16px;
-          }
-          .btn:hover {
-            background: #43a047;
-            transform: translateY(-2px);
-          }
-          .btn-secondary {
-            background: #e2e8f0;
-            color: #4a5568;
-            margin-top: 12px;
-            width: 100%;
-            padding: 14px 28px;
-            border-radius: 40px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            transition: all 0.2s;
-          }
-          .btn-secondary:hover {
-            background: #cbd5e0;
-            transform: translateY(-2px);
-          }
-          @media (max-width: 480px) {
-            div[style*="padding: 32px"] {
-              padding: 24px !important;
-            }
-            h1 {
-              font-size: 24px !important;
-            }
-            .amount {
-              font-size: 28px !important;
-            }
-          }
-        `}</style>
-
-        <div className="icon" aria-hidden="true">
-          <svg
-            width="48"
-            height="48"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="white"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M20 6L9 17l-5-5" />
-          </svg>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center p-4">
+      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-green-500 p-6 text-center">
+          <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto">
+            <CheckCircle className="w-10 h-10 text-green-500" />
+          </div>
+          <h1 className="text-2xl font-bold text-white mt-4">Paiement prêt !</h1>
+          <p className="text-green-100 mt-1">Mode développement - Test réussi</p>
         </div>
-
-        <h1 style={{ fontSize: 28, marginBottom: 12, color: "#1a202c" }}>
-          Paiement prêt !
-        </h1>
-        <p style={{ color: "#718096" }}>Mode développement - Test réussi</p>
-
-        <div
-          className="amount"
-          style={{
-            fontSize: 36,
-            fontWeight: "bold",
-            color: "#4caf50",
-            margin: "16px 0",
-          }}
-        >
-          {amount.toLocaleString()} FCFA
-        </div>
-
-        <div
-          style={{
-            background: "#f7fafc",
-            borderRadius: 16,
-            padding: 20,
-            margin: "24px 0",
-            textAlign: "left",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "8px 0",
-              borderBottom: "1px solid #e2e8f0",
-            }}
-          >
-            <span style={{ color: "#718096", fontWeight: 500 }}>
-              Mode de paiement
-            </span>
-            <span style={{ color: "#2d3748", fontWeight: 600 }}>
-              {method === "mtn" ? "📱 MTN Money" : "🟠 Orange Money"}
-            </span>
+        
+        <div className="p-6">
+          <div className="text-center mb-6">
+            <div className="text-3xl font-bold text-green-600">
+              {Number(amount).toLocaleString()} FCFA
+            </div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "8px 0",
-              borderBottom: "1px solid #e2e8f0",
-            }}
-          >
-            <span style={{ color: "#718096", fontWeight: 500 }}>
-              Numéro de commande
-            </span>
-            <span style={{ color: "#2d3748", fontWeight: 600 }}>
-              {orderNumber?.substring(0, 8)}...
-            </span>
+          
+          <div className="space-y-4">
+            <div className="flex justify-between items-center py-2 border-b">
+              <span className="text-gray-500">Mode de paiement</span>
+              <span className="font-semibold">{method === 'mtn' ? '📱 MTN Money' : '🟠 Orange Money'}</span>
+            </div>
+            <div className="flex justify-between items-center py-2 border-b">
+              <span className="text-gray-500">Commande</span>
+              <span className="font-mono text-sm">{orderNumber?.substring(0, 8)}...</span>
+            </div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "8px 0",
-            }}
-          >
-            <span style={{ color: "#718096", fontWeight: 500 }}>
-              Code confirmation
-            </span>
-            <span style={{ color: "#2d3748", fontWeight: 600 }}>
-              {confirmationCode}
-            </span>
+          
+          <div className="mt-6 bg-gray-50 rounded-xl p-4">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm text-gray-500">Code USSD à composer</span>
+              <button 
+                onClick={() => copyToClipboard(ussdCode)}
+                className="text-blue-500 hover:text-blue-600 text-sm flex items-center gap-1"
+              >
+                <Copy className="w-4 h-4" />
+                {copied ? "Copié !" : "Copier"}
+              </button>
+            </div>
+            <div className="bg-white rounded-lg p-3 text-center">
+              <code className="text-xl font-mono font-bold text-gray-800">{ussdCode}</code>
+            </div>
+            <p className="text-xs text-gray-400 text-center mt-2">
+              Composez ce code sur votre téléphone et suivez les instructions
+            </p>
           </div>
-        </div>
-
-        <div
-          style={{
-            background: "#edf2f7",
-            padding: 16,
-            borderRadius: 12,
-            textAlign: "center",
-            margin: "16px 0",
-          }}
-        >
-          <div
-            style={{
-              fontSize: 12,
-              color: "#718096",
-              marginBottom: 8,
-            }}
-          >
-            Code USSD à composer
+          
+          <div className="mt-6 space-y-3">
+            <Link href={`/success?orderNumber=${orderNumber}&sim=true`}>
+              <Button className="w-full bg-green-500 hover:bg-green-600">
+                ✅ Confirmer la commande
+              </Button>
+            </Link>
+            <Link href="/cart">
+              <Button variant="outline" className="w-full">
+                🔄 Annuler et retourner
+              </Button>
+            </Link>
           </div>
-          <div
-            style={{
-              fontFamily: "monospace",
-              fontSize: 20,
-              fontWeight: "bold",
-              letterSpacing: 2,
-              color: "#2d3748",
-            }}
-          >
-            {ussdCode}
-          </div>
-        </div>
-
-        <button
-          className="btn"
-          onClick={() =>
-            router.push(`/success?orderNumber=${orderNumber}&sim=true`)
-          }
-          type="button"
-        >
-          ✅ Confirmer la commande
-        </button>
-
-        <button
-          className="btn-secondary"
-          onClick={() => router.push("/cart")}
-          type="button"
-        >
-          🔄 Annuler et retourner
-        </button>
-
-        <div
-          style={{ marginTop: 20, fontSize: 14, color: "#a0aec0" }}
-          aria-live="polite"
-        >
-          ⏳ Redirection automatique dans <span>{countdown}</span> secondes...
         </div>
       </div>
     </div>
