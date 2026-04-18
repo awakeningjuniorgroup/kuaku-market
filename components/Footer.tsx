@@ -63,11 +63,11 @@ const Footer = () => {
             <SubTitle>Newsletter</SubTitle>
             <SubText>
               Souscrire a notre newsletter pour recoivoir tout nos nouveautés et offres.
-              offers
+              
             </SubText>
             <form className="space-y-3">
-              <Input placeholder="Enter your email" type="email" required />
-              <Button className="w-full">Subscribe</Button>
+              <Input placeholder="Entrer votre email" type="email" required />
+              <Button className="w-full">Souscrire</Button>
             </form>
           </div>
         </div>

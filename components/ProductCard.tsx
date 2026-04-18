@@ -12,8 +12,8 @@ import AddToCartButton from "./AddToCartButton";
 
 const ProductCard = ({ product }: { product: Product }) => {
   return (
-    <div className="text-sm border rounded-md border-darkBlue/20 group bg-white">
-      <div className="relative group overflow-hidden bg-shop_light_bg ">
+    <div className="text-sm border rounded-md border-darkBlue/20 group bg-white flex flex-col h-full">
+      <div className="relative group overflow-hidden bg-shop_light_bg">
         {product?.images && (
           <Link href={`/product/${product?.slug?.current}`}>
             <Image
@@ -45,7 +45,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           </Link>
         )}
       </div>
-      <div className="p-3 flex flex-col gap-2">
+      <div className="p-3 flex flex-col gap-2 flex-1">
         {product?.categories && (
           <p className="uppercase line-clamp-1 text-xs font-medium text-lightText">
             {product.categories.map((cat) => cat).join(", ")}
@@ -81,7 +81,10 @@ const ProductCard = ({ product }: { product: Product }) => {
           discount={product?.discount}
           className="text-xs"
         />
-        <AddToCartButton product={product} className="w-36 rounded-full" />
+        <AddToCartButton 
+          product={product} 
+          className="w-full rounded-full"  // Changé de "w-36" à "w-full"
+        />
       </div>
     </div>
   );

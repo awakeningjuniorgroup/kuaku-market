@@ -12,7 +12,7 @@ interface HomeCategoriesProps {
 const HomeCategories: React.FC<HomeCategoriesProps> = ({ categories }) => {
   return (
     <div className="bg-white border border-shop_light_green my-10 md:my-20 p-5 md:p-10 rounded-lg">
-      <Title className="border-b pb-3">Popular categories</Title>
+      <Title className="border-b pb-3">Categorie populaire</Title>
       <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {categories?.map((category) => (
           <div
